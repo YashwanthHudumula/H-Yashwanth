@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Expense Management System - Infosys Internship Project">
+    <meta name="keywords" content="Expense Management, Web Application, Infosys Internship, Finance Tracking">
+    <meta name="author" content="Yashwanth Hudumula">
+    <title>Expense Management System - Infosys Internship Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png') repeat, linear-gradient(120deg, #1a1a2e, #16213e);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            padding: 50px 20px;
+            background: rgba(15, 52, 96, 0.9);
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            text-align: left;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .highlight-button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #0078D4;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .highlight-button:hover {
+            background-color: #005a9e;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #e94560;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+        <h1 class="animate">Expense Management System</h1>
+        <p class="animate">A user-friendly web application for tracking and managing expenses</p>
+    </header>
+    <div class="container">
+        <h2>Project Overview</h2>
+        <p>This project was developed as part of my internship at Infosys. It provides an efficient system for tracking, managing, and analyzing expenses to ensure transparency and automation in financial management.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li>Secure user registration and role-based dashboard access</li>
+            <li>Interface for adding, updating, and managing expenses</li>
+            <li>AI-powered categorization of expenses</li>
+            <li>Real-time notifications and secure backend management</li>
+        </ul>
+        
+        <h2>Technologies Used</h2>
+        <ul>
+            <li>Frontend: React</li>
+            <li>Backend: Spring Boot</li>
+            <li>Database: MySQL</li>
+            <li>Cloud Hosting: Microsoft Azure</li>
+        </ul>
+        
+        <h2>Internship Completion :
+        </h2>
+        <a class="highlight-button" href="ABSTRACT-GROUP-2-EXPENSE-MANAGEMENT.pptx">Documentation/Presentation</a><br><br>
+        <a class="highlight-button" href="Infosys-internship-certificate.pdf" target="_blank">View Internship Certificate</a>
+
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+    </div>
+    
+    <script>
+        gsap.from(".animate", {opacity: 0, y: -50, duration: 1, stagger: 0.2});
+    </script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yashwanth Hudumula | Java Developer | Web Developer | Data Enthusiast">
+    <meta name="keywords" content="Yashwanth Hudumula, H Yashwanth, Hudumula, Java Developer, Web Developer, Sports Analytics">
+    <meta name="author" content="Yashwanth Hudumula">
+    <title>Yashwanth's Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png') repeat, linear-gradient(120deg, #1a1a2e, #16213e);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            padding: 50px 20px;
+            background: rgba(220, 60, 60, 0.9);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background: rgba(233, 69, 96, 0.9);
+        }
+        nav ul li {
+            margin: 10px 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        section {
+            padding: 50px 20px;
+        }
+        .experience, .project, .education {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            width: 80%;
+            transition: transform 0.3s;
+            color: white;
+            position: relative;
+            text-align: left;
+        }
+        .experience:hover, .project:hover, .education:hover {
+            transform: scale(1.05);
+        }
+        .view-project {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e94560;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .view-project:hover {
+            background: #ff5a75;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        footer {
+            background: rgba(15, 52, 96, 0.9);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            width: 50%;
+            color: white;
+        }
+        input, textarea, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff5a75;
+        }
+
+
+
+
+        .menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    background: #000000;
+    text-align: center;
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 20px; /* Moves it to the right */
+    border-radius: 5px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Show the menu button */
+    }
+
+    nav ul {
+        display: none; /* Hide menu items by default */
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        background: rgba(233, 69, 96, 0.9);
+    }
+
+    nav ul.active {
+        display: flex; /* Show menu when active */
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="animate">Yashwanth Hudumula</h1>
+        <p class="animate">Java Developer | Web Developer | Data Enthusiast</p>
+    </header>
+
+
+
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul id="nav-menu">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+
+
+
+
+    <nav>
+        
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I'm <strong>Yashwanth Hudumula</strong>, a passionate Java Developer and Web Developer from JNTU Hyderabad. 
+            I specialize in Data Analytics, AI, and Sports Analytics. I have worked with <strong>Microsoft, Chegg India, Infosys Springboard</strong> and <strong>Collearn</strong> 
+            to build cutting-edge solutions. My expertise spans Java, Python, SQL, and Web Technologies.</p>
+    </section>
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education">
+            <h3>B.Tech + M.S in Computer Science & Engineering</h3>
+            <ul>
+                <li>JNTU Hyderabad | 2022 - Present | CGPA: 7.54/ SGPA: 8.30</li>
+                <li>Relevant Coursework: Artificial Intelligence, Data Analytics, Machine Learning, Natural Language Processing, Computer Networks.</li>
+            </ul>
+        </div>
+        <div class="education">
+            <h3>HSC - Physics, Chemistry, & Mathematics</h3>
+            <ul>
+                <li>Narayana College | 2022 | Percentage: 96</li>
+                <li>Completed with distinction, excelling in Mathematics and Physics.</li>
+            </ul>
+        </div>
+    </section>
+    </nav>
+    <section id="experience">
+        <h2>Work Experience</h2>
+        <div class="experience">
+            <h3>Sports Analytics Intern - Infosys Springboard & Collearn (Jan 2025 - Apr 2025 *ONGOING*)</h3>
+            <ul>
+                <li>Working on analyzing sports data using advanced analytics and machine learning techniques.</li>
+                <li>Collaborating with a team to develop insights on player performance and game strategies.</li>
+                <li>Utilizing Python, SQL, and visualization tools to interpret large datasets.</li>
+                <li>Generating reports and presentations for stakeholders based on analytical findings.</li>
+            </ul>
+            <a href="#" class="view-project">View Project →</a>
+        </div>
+        <div class="experience">
+            <h3>Java Developer - Infosys Springboard (Sep 2024 - Jan 2025)</h3>
+            <ul>
+                <li>Led a team to develop an Expense Management System handling 100,000+ records.</li>
+                <li>Implemented role-based access control, ensuring data security and user authentication.</li>
+                <li>Optimized database queries, reducing query execution time by 40%.</li>
+                <li>Developed RESTful APIs to integrate the system with multiple platforms.</li>
+            </ul>
+            <a href="expense.html" class="view-project">View Project →</a>
+        </div>
+        <div class="experience">
+            <h3>Web Developer Intern - F R T Microsoft (Jul 2023 - Sep 2023)</h3>
+            <ul>
+                <li>Developed an e-learning platform with Azure and Firebase, achieving 99.9% uptime.</li>
+                <li>Designed and optimized responsive UI/UX, improving user engagement.</li>
+                <li>Integrated real-time analytics to track student performance and behavior.</li>
+                <li>Implemented cloud-based storage and authentication for enhanced security.</li>
+            </ul>
+            <a href="Microsoft-frt.html" class="view-project">View Project →</a>
+        </div>
+        <div class="experience">
+            <h3>Freelancer - Chegg India (Mar 2023 - May 2023)</h3>
+            <ul>
+                <li>Successfully cleared the freelancer screening test conducted by Chegg India.</li>
+                <li>Provided step-by-step solutions to 80+ complex Computer Science problems.</li>
+                <li>Maintained a 98% accuracy rating and received high student satisfaction scores.</li>
+                <li>Helped undergraduate students understand difficult programming concepts and algorithms.</li>
+            </ul>
+            <a href="Chegg-work-certificate.pdf" class="view-project">View Certificate →</a>
+        </div>
+    </section>
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <h3>Digital Log Book System for Hostels (May-Jul 2024)</h3>
+            <ul>
+                <li>Implemented a QR code-based system for hostel entry and exit.</li>
+                <li>Developed a real-time monitoring dashboard for hostel authorities.</li>
+                <li>Integrated cloud-based logging to enhance data security and accessibility.</li>
+                <li>Designed an automated alert system for unauthorized entries.</li>
+            </ul>
+            <a href="Hostel-QR.html" class="view-project">View Project →</a>
+        </div>
+        <div class="project">
+            <h3>Hotel Booking System (Apr 2024)</h3>
+            <ul>
+                <li>Developed a responsive hotel booking platform with real-time availability.</li>
+                <li>Implemented secure payment gateways to ensure seamless transactions.</li>
+                <li>Optimized search filters, improving user navigation experience.</li>
+            </ul>
+            <a href="Hotel-booking.html" class="view-project">View Project →</a>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form action="https://formspree.io/f/xdkenlej" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <p>Email: internship.yashwanth@gmail.com</p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/hudumula-yashwanth" style="color:#e94560;">linkedin.com/in/hudumula-yashwanth</a></p>
+        <p>GitHub: <a href="github.com/YASHSHOGUN" style="color:#e94560;">https://github.com/YashwanthHudumula?tab=repositories</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Yashwanth Hudumula. All Rights Reserved.</p>
+        <p>Connect with me on <a href="https://linkedin.com/in/hudumula-yashwanth" style="color:#e94560;">LinkedIn</a> | <a href="https://github.com/YashwanthHudumula?tab=repositories" style="color:#e94560;">GitHub</a></p>
+    </footer>
+    <script>
+        gsap.from(".animate", {opacity: 0, y: -50, duration: 1, stagger: 0.2});
+
+        function toggleMenu() {
+    document.getElementById("nav-menu").classList.toggle("active");
+}
+
+    </script>
+</body>
+</html>
