@@ -1,99 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="E-learning Platform - Internship Project">
-    <meta name="keywords" content="E-learning, Online Classes, Web Development, Microsoft FRT, Azure">
-    <meta name="author" content="Yashwanth Hudumula">
-    <title>E-learning Platform - Internship Project</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png') repeat, linear-gradient(120deg, #1a1a2e, #16213e);
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            padding: 50px 20px;
-            background: rgba(15, 52, 96, 0.9);
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            text-align: left;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        .highlight-button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            background-color: #0078D4;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .highlight-button:hover {
-            background-color: #005a9e;
-        }
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #e94560;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="E-learning Platform - Internship Project" />
+  <meta name="keywords" content="E-learning, Online Classes, Web Development, Microsoft FRT, Azure" />
+  <meta name="author" content="Yashwanth Hudumula" />
+  <title>E-learning Platform - Internship Project</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #00ffff;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    iframe {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    header {
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    h1::after, h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      border-radius: 2px;
+    }
+
+    p, li, a {
+      font-size: 1.1rem;
+      color: #00ffff;
+    }
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.21);
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .highlight-button {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .highlight-button:hover {
+      filter: brightness(1.1);
+      transform: scale(1.05);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
-        <h1 class="animate">E-learning Platform</h1>
-        <p class="animate">An online education system with live and recorded classes</p>
-    </header>
-    <div class="container">
-        <h2>Project Overview</h2>
-        <p>This project was developed as part of the Future Ready Talent (FRT) program by Microsoft. It aims to create an e-learning platform with both recorded and live classes, providing students with a flexible and interactive learning experience.</p>
-        
-        <h2>Key Features</h2>
-        <ul>
-            <li>Recorded video lectures for self-paced learning</li>
-            <li>Live classes for real-time interaction</li>
-            <li>User-friendly interface with seamless navigation</li>
-            <li>Cloud-based deployment using Microsoft Azure</li>
-        </ul>
-        
-        <h2>Technologies Used</h2>
-        <ul>
-            <li>Frontend: HTML, CSS, JavaScript</li>
-            <li>Cloud Hosting: Azure Static Web Apps</li>
-            <li>Live Streaming: Integration with online meeting platforms</li>
-        </ul>
-        
-        <h2>Internship Completion:</h2>
-        
-        <a class="highlight-button" href="H-Yashwanth-FRT.pdf" target="_blank">View Internship Certificate</a>
+  <iframe src="https://my.spline.design/abstractnirvana-l77VNrZYtFNsGrOBapfKY0sx/"></iframe>
 
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
-    </div>
+  <header>
     <a href="index.html" class="back-link">← Back to Portfolio</a>
-    <script>
-        gsap.from(".animate", {opacity: 0, y: -50, duration: 1, stagger: 0.2});
-    </script>
+    <h1 class="animate">E-learning Platform</h1>
+    <p class="animate">An online education system with live and recorded classes</p>
+  </header>
+
+  <div class="container">
+    <h2>Project Overview</h2>
+    <p>This project was developed as part of the Future Ready Talent (FRT) program by Microsoft. It aims to create an e-learning platform with both recorded and live classes, providing students with a flexible and interactive learning experience.</p>
+
+    <h2>Key Features</h2>
+    <ul>
+      <li>Recorded video lectures for self-paced learning</li>
+      <li>Live classes for real-time interaction</li>
+      <li>User-friendly interface with seamless navigation</li>
+      <li>Cloud-based deployment using Microsoft Azure</li>
+    </ul>
+
+    <h2>Technologies Used</h2>
+    <ul>
+      <li>Frontend: HTML, CSS, JavaScript</li>
+      <li>Cloud Hosting: Azure Static Web Apps</li>
+      <li>Live Streaming: Integration with online meeting platforms</li>
+    </ul>
+
+    <h2>Internship Completion:</h2><br>
+    <a class="highlight-button" href="H-Yashwanth-FRT.pdf" target="_blank">View Internship Certificate</a>
+
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  </div>
+
+  <script>
+    gsap.from(".animate", { opacity: 0, y: -50, duration: 1, stagger: 0.2 });
+  </script>
 </body>
 </html>
