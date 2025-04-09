@@ -41,6 +41,12 @@ html, body {
 }
 
 
+a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff;
+}
+
+
         body {
             font-family: Arial, sans-serif;
             background: transparent;
@@ -59,15 +65,21 @@ html, body {
             padding: 0;
             display: flex;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.218);
+            background: rgba(255, 255, 255, 0.314);
         }
         nav ul li {
             margin: 10px 20px;
         }
         nav ul li a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: gold;
+  text-underline-offset: 8px;
         }
         section {
             padding: 50px 20px;
@@ -79,7 +91,7 @@ html, body {
             border-radius: 10px;
             width: 80%;
             transition: transform 0.3s;
-            color: white;
+            color: #00ffff;
             position: relative;
             text-align: left;
         }
@@ -167,7 +179,7 @@ html, body {
         position: absolute;
         top: 50px;
         left: 0;
-        background: rgba(233, 69, 96, 0.9);
+        background: rgba(0, 0, 0, 0.752);
     }
 
     nav ul.active {
@@ -214,8 +226,26 @@ html, body {
   <div class="content">
 
     <header>
-        <h1 class="animate">Yashwanth Hudumula</h1>
-        <p class="animate">Java Developer | Web Developer | Data Enthusiast</p>
+        <h1 style="font-family: 'Poppins', sans-serif;
+        font-size: 50px;
+        font-weight: 700;
+        background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        text-decoration: underline;
+        text-decoration-color: gold;
+        text-underline-offset: 8px;" class="animate">Yashwanth Hudumula</h1>
+        <p style="font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        text-decoration: underline;
+        text-decoration-color: gold;
+        text-underline-offset: 8px;" class="animate">Java Developer | Web Developer | Data Enthusiast</p>
     </header>
 
 
@@ -238,13 +268,13 @@ html, body {
     <nav>
         
     <section id="about">
-        <h2>About Me</h2>
-        <p>I'm <strong>H Yashwanth (Yashwanth Hudumula)</strong>, a passionate Java Developer and Web Developer from JNTU Hyderabad. 
+        <h2 style="color: gold;">About Me</h2>
+        <p style="color: #00ffff;">I'm <strong>H Yashwanth (Yashwanth Hudumula)</strong>, a passionate Java Developer and Web Developer from JNTU Hyderabad. 
             I specialize in Data Analytics, AI, and Sports Analytics. I have worked with <strong>Microsoft, Chegg India, Infosys Springboard</strong> and <strong>Collearn</strong> 
             to build cutting-edge solutions. My expertise spans Java, Python, SQL, and Web Technologies.</p>
     </section>
     <section id="education">
-        <h2>Education</h2>
+        <h2 style="color: gold;">Education</h2>
         <div class="education">
             <h3>B.Tech + M.S in Computer Science & Engineering</h3>
             <ul>
@@ -269,7 +299,7 @@ html, body {
     </section>
     </nav>
     <section id="experience">
-        <h2>Work Experience</h2>
+        <h2 style="color: gold;">Work Experience</h2>
         <div class="experience">
             <h3>Sports Analytics Intern - Infosys Springboard & Collearn (Jan 2025 - Apr 2025 *ONGOING*)</h3>
             <ul>
@@ -312,7 +342,7 @@ html, body {
         </div>
     </section>
     <section id="projects">
-        <h2>Projects</h2>
+        <h2 style="color: gold;">Projects</h2>
         <div class="project">
             <h3>Digital Log Book System for Hostels (May-Jul 2024)</h3>
             <ul>
@@ -334,7 +364,7 @@ html, body {
         </div>
     </section>
     <section id="contact">
-        <h2>Contact Me</h2>
+        <h2 style="color: gold;">Contact Me</h2>
         <form action="https://formspree.io/f/xdkenlej" method="POST">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
