@@ -139,14 +139,22 @@ a:hover {
             border-radius: 5px;
         }
         button {
-            background: #e94560;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #ff5a75;
-        }
+  background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
 
 
 
@@ -277,7 +285,31 @@ a:hover {
         <h2 style="color: gold;">Education</h2>
         <div class="education">
             <h3>B.Tech + M.S in Computer Science & Engineering</h3>
-            <ul>
+
+            <style>
+              h3 {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-align: center;
+                display: inline-block;
+                position: relative;
+              }
+            
+              h3::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: -5px;
+                width: 100%;
+                height: 4px;
+                background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+                border-radius: 2px;
+              }
+            </style>
+                        <ul>
                 <li>JNTU Hyderabad | 2022 - Present | CGPA: 7.864/ SGPA: 9.00</li>
                 <li>Relevant Coursework: Artificial Intelligence, Data Analytics, Machine Learning, Natural Language Processing, Computer Networks.</li>
             </ul>
