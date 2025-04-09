@@ -1,127 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sterling Homes Booking System - Java Swing Project">
-    <meta name="keywords" content="Hotel Booking, Java Swing, Sterling Homes, GUI, Online Reservations">
-    <meta name="author" content="Yashwanth Hudumula & Team">
-    <title>Hotel Booking Java Booking System</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png') repeat, linear-gradient(120deg, #1a1a2e, #16213e);
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            padding: 50px 20px;
-            background: rgba(15, 52, 96, 0.9);
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            text-align: left;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #e94560;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sterling Homes Booking System - Java Swing Project" />
+  <meta name="keywords" content="Hotel Booking, Java Swing, Sterling Homes, GUI, Online Reservations" />
+  <meta name="author" content="Yashwanth Hudumula & Team" />
+  <title>Hotel Booking Java Booking System</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #00ffff;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    iframe {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    header {
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    h1::after, h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      border-radius: 2px;
+    }
+
+    p, li, a {
+      font-size: 1.1rem;
+      color: #00ffff;
+    }
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.22);
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    img {
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 2px solid #00ffff;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
-        <h1 class="animate">Sterling Homes Booking System</h1>
-        <p class="animate">A Java Swing-based hotel reservation system</p>
-    </header>
-    <div class="container">
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
-        
-        <h2>Project Overview</h2>
-        <p>The Sterling Homes Booking System is a Java Swing application designed for seamless hotel reservations. It features an intuitive GUI, allowing users to select hotels, input booking details, and finalize their reservations efficiently.</p>
-        
-        <h2>Key Features</h2>
-        <ul>
-            <li>Hotel selection from multiple locations (Hyderabad, Goa, Tirupati, Visakhapatnam)</li>
-            <li>Customizable booking details with sliders for adults, children, and rooms</li>
-            <li>Check-in and check-out date selection</li>
-            <li>Meal preference selection (Veg/Non-Veg)</li>
-            <li>Secure payment options (Online or Cash)</li>
-            <li>Instant booking confirmation with a dynamically generated receipt</li>
-        </ul>
-        
-        <h2>Components Used</h2>
-        <ul>
-            <li>JPanel</li>
-            <li>JButton</li>
-            <li>JTabbedPane</li>
-            <li>JComboBox</li>
-            <li>JSlider</li>
-            <li>JCheckBox</li>
-            <li>JTextField</li>
-            <li>JPasswordField</li>
-            <li>ImageIcon</li>
-            <li>JLabel</li>
-            <li>JOptionPane</li>
-            <li>JRadioButton with ButtonGroup</li>
-        </ul>
-        
-        <h2>Technologies Used</h2>
-        <ul>
-            <li>Java Swing for GUI</li>
-            <li>JDBC for database connectivity</li>
-            <li>MySQL for data storage</li>
-            <li>Java AWT for graphical enhancements</li>
-        </ul>
-        
-        <h2>Booking Process</h2>
-        <ul>
-            <li>Select a hotel location from the drop-down menu</li>
-            <li>Enter booking details (number of guests, check-in/out dates, meal preferences)</li>
-            <li>Choose a payment method and confirm the reservation</li>
-            <li>Receive an instant booking receipt with reservation details</li>
-        </ul>
-        
-        <h2>Project Demo / Screenshots</h2>
-        <img src="hotel_booking_1.png" alt="Booking System Screenshot 1" width="80%">
-        <img src="hotel_booking_2.png" alt="Booking System Screenshot 2" width="80%">
-        <img src="hotel_booking_3.png" alt="Booking System Screenshot 3" width="80%">
-        
-        <h2>Future Enhancements</h2>
-        <ul>
-            <li>Integration with online hotel databases for real-time availability</li>
-            <li>Automated email confirmations for users</li>
-            <li>Mobile application version with additional features</li>
-            <li>Machine learning-based price prediction for better booking recommendations</li>
-        </ul>
-        
-        <h2>References</h2>
-        <ul>
-            <li><a href="Hotel booking assets/Abstract.pdf" style="color:#e94560;">Project Documentation (Abstract)</a></li>
-        </ul>
-        
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
-    </div>
-    
-    <script>
-        gsap.from(".animate", {opacity: 0, y: -50, duration: 1, stagger: 0.2});
-    </script>
+  <iframe src="https://my.spline.design/abstractnirvana-l77VNrZYtFNsGrOBapfKY0sx/"></iframe>
+
+  <header>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <h1 class="animate">Sterling Homes Booking System</h1>
+    <p class="animate">A Java Swing-based hotel reservation system</p>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+    <h2>Project Overview</h2>
+    <p>The Sterling Homes Booking System is a Java Swing application designed for seamless hotel reservations. It features an intuitive GUI, allowing users to select hotels, input booking details, and finalize their reservations efficiently.</p>
+
+    <h2>Key Features</h2>
+    <ul>
+      <li>Hotel selection from multiple locations (Hyderabad, Goa, Tirupati, Visakhapatnam)</li>
+      <li>Customizable booking details with sliders for adults, children, and rooms</li>
+      <li>Check-in and check-out date selection</li>
+      <li>Meal preference selection (Veg/Non-Veg)</li>
+      <li>Secure payment options (Online or Cash)</li>
+      <li>Instant booking confirmation with a dynamically generated receipt</li>
+    </ul>
+
+    <h2>Components Used</h2>
+    <ul>
+      <li>JPanel</li>
+      <li>JButton</li>
+      <li>JTabbedPane</li>
+      <li>JComboBox</li>
+      <li>JSlider</li>
+      <li>JCheckBox</li>
+      <li>JTextField</li>
+      <li>JPasswordField</li>
+      <li>ImageIcon</li>
+      <li>JLabel</li>
+      <li>JOptionPane</li>
+      <li>JRadioButton with ButtonGroup</li>
+    </ul>
+
+    <h2>Technologies Used</h2>
+    <ul>
+      <li>Java Swing for GUI</li>
+      <li>JDBC for database connectivity</li>
+      <li>MySQL for data storage</li>
+      <li>Java AWT for graphical enhancements</li>
+    </ul>
+
+    <h2>Booking Process</h2>
+    <ul>
+      <li>Select a hotel location from the drop-down menu</li>
+      <li>Enter booking details (number of guests, check-in/out dates, meal preferences)</li>
+      <li>Choose a payment method and confirm the reservation</li>
+      <li>Receive an instant booking receipt with reservation details</li>
+    </ul>
+
+    <h2>Project Demo / Screenshots</h2>
+    <img src="hotel_booking_1.png" alt="Booking System Screenshot 1" width="80%">
+    <img src="hotel_booking_2.png" alt="Booking System Screenshot 2" width="80%">
+    <img src="hotel_booking_3.png" alt="Booking System Screenshot 3" width="80%">
+
+    <h2>Future Enhancements</h2>
+    <ul>
+      <li>Integration with online hotel databases for real-time availability</li>
+      <li>Automated email confirmations for users</li>
+      <li>Mobile application version with additional features</li>
+      <li>Machine learning-based price prediction for better booking recommendations</li>
+    </ul>
+
+    <h2>References</h2>
+    <ul>
+      <li><a href="Hotel booking assets/Abstract.pdf" style="color: #00ffff;">Project Documentation (Abstract)</a></li>
+    </ul>
+
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  </div>
+
+  <script>
+    gsap.from(".animate", { opacity: 0, y: -50, duration: 1, stagger: 0.2 });
+  </script>
 </body>
 </html>
