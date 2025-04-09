@@ -11,24 +11,55 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.spline-iframe-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; /* NOT -1 so interaction works */
+}
+
+.spline-iframe-background iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.content {
+  position: relative;
+  z-index: 1; /* ensures it’s above the iframe */
+}
+
+
         body {
             font-family: Arial, sans-serif;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png') repeat, linear-gradient(120deg, #1a1a2e, #16213e);
-            color: white;
+            background: transparent;
+            color: rgb(255, 255, 255);
             text-align: center;
-            margin: 0;
-            padding: 0;
+            
+            z-index: 1;
+
         }
         header {
             padding: 50px 20px;
-            background: rgba(220, 60, 60, 0.9);
+            background: transparent;
         }
         nav ul {
             list-style: none;
             padding: 0;
             display: flex;
             justify-content: center;
-            background: rgba(233, 69, 96, 0.9);
+            background: rgba(255, 255, 255, 0.218);
         }
         nav ul li {
             margin: 10px 20px;
@@ -146,6 +177,25 @@
     nav ul li {
         margin: 10px 0;
     }
+
+    .spline-iframe-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none; /* allows your buttons/links to work */
+  overflow: hidden;
+}
+
+.spline-iframe-background iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
 }
 
 
@@ -154,6 +204,12 @@
     </style>
 </head>
 <body>
+    <!-- HTML - place at top of <body> -->
+<div class="spline-iframe-background">
+    <iframe src='https://my.spline.design/particlenebula-52sYpHmYyXrn5215vNjCYlON/' frameborder='0' width='100%' height='100%'></iframe>  </div>
+  
+  <div class="content">
+
     <header>
         <h1 class="animate">Yashwanth Hudumula</h1>
         <p class="animate">Java Developer | Web Developer | Data Enthusiast</p>
@@ -285,7 +341,11 @@
         <p>Email: internship.yashwanth@gmail.com</p>
         <p>LinkedIn: <a href="https://linkedin.com/in/hudumula-yashwanth" style="color:#e94560;">linkedin.com/in/hudumula-yashwanth</a></p>
         <p>GitHub: <a href="github.com/YASHSHOGUN" style="color:#e94560;">https://github.com/YashwanthHudumula?tab=repositories</a></p>
-    </section>
+    </section>  </div>
+  
+      
+
+
 
     <footer>
         <p>&copy; © 2025 H Yashwanth | Yashwanth Hudumula. All Rights Reserved.</p>
