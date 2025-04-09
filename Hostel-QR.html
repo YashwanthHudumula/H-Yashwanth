@@ -1,113 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hostel Digital Logbook System - Project Overview">
-    <meta name="keywords" content="Hostel Logbook, Digital Logbook, QR Code Entry, Firebase, Web Development">
-    <meta name="author" content="Yashwanth Hudumula & Team">
-    <title>Hostel Digital Logbook System</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png') repeat, linear-gradient(120deg, #1a1a2e, #16213e);
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            padding: 50px 20px;
-            background: rgba(15, 52, 96, 0.9);
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            text-align: left;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #e94560;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hostel Digital Logbook System - Project Overview" />
+  <meta name="keywords" content="Hostel Logbook, Digital Logbook, QR Code Entry, Firebase, Web Development" />
+  <meta name="author" content="Yashwanth Hudumula & Team" />
+  <title>Hostel Digital Logbook System</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #00ffff;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    iframe {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    header {
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    h1::after, h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      border-radius: 2px;
+    }
+
+    p, li, a {
+      font-size: 1.1rem;
+      color: #00ffff;
+    }
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #00ffff;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    img {
+      margin: 10px;
+      border-radius: 8px;
+      border: 2px solid #00ffff;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
-        <h1 class="animate">Hostel Digital Logbook System</h1>
-        <p class="animate">Efficient hostel management using QR codes, Firebase & Web Technologies</p>
-    </header>
-    <div class="container">
-        <h2>Project Overview</h2>
-        <p>The Hostel Digital Logbook System modernizes hostel entry/exit management using QR codes, Google Forms, and Firebase. It enhances security, provides real-time tracking, and automates data entry.</p>
-        
-        <h2>Key Features</h2>
-        <ul>
-            <li>Unique QR Code Generation for each student</li>
-            <li>Web-based Scanner Interface for wardens</li>
-            <li>Google Form Integration for real-time data logging</li>
-            <li>Firebase Backend for secure storage & retrieval</li>
-            <li>Admin Panel for monitoring & reporting</li>
-        </ul>
-        
-        <h2>System Architecture</h2>
-        <ul>
-            <li>User Interface (Web-based dashboard for administrators & wardens)</li>
-            <li>Database (Firebase for secure storage & retrieval)</li>
-            <li>Backend (Manages authentication & data processing)</li>
-            <li>Integration Layer (Seamless connectivity with hostel management systems)</li>
-            <li>Security Layer (Data encryption & access control)</li>
-        </ul>
-        
-        <h2>Technologies Used</h2>
-        <ul>
-            <li>Frontend: HTML, CSS, JavaScript</li>
-            <li>Backend: Firebase Realtime Database</li>
-            <li>QR Code Generation: Python & JavaScript</li>
-            <li>Cloud Hosting: Google Firebase & Azure</li>
-        </ul>
-        
-        <h2>Project Demo / Screenshots</h2>
-        <img src="Hostel QR assests/Picture1.png" alt="Project Screenshot 1" width="40%">
-        <img src="Hostel QR assests/Picture2.png" alt="Project Screenshot 2" width="40%">
-        <img src="Hostel QR assests/Picture3.png" alt="Project Screenshot 3" width="80%">
-        <img src="Hostel QR assests/Picture4.png" alt="Project Screenshot 4" width="40%">
-        <img src="Hostel QR assests/Picture5.jpg" alt="Project Screenshot 5" width="40%">
-        <img src="Hostel QR assests/Picture6.png" alt="Project Screenshot 5" width="40%">
-        <img src="Hostel QR assests/Picture7.png" alt="Project Screenshot 5" width="40%">
-        
-        
-        <h2>Future Enhancements</h2>
-        <ul>
-            <li>Blockchain-based security for log entries</li>
-            <li>AI-driven analytics for student activity monitoring</li>
-            <li>Mobile app integration for easier access</li>
-        </ul>
-        
-        <h2>References</h2>
-        <ul>
-            <a href="Hostel QR assests/rrp_final[1].pdf">Documentation</a>
-        </ul>
-        
-        <a href="index.html" class="back-link">← Back to Portfolio</a>
-    </div>
-    
-    <script>
-        gsap.from(".animate", {opacity: 0, y: -50, duration: 1, stagger: 0.2});
-    </script>
+  <iframe src="https://my.spline.design/abstractnirvana-l77VNrZYtFNsGrOBapfKY0sx/"></iframe>
+
+  <header>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <h1 class="animate">Hostel Digital Logbook System</h1>
+    <p class="animate">Efficient hostel management using QR codes, Firebase & Web Technologies</p>
+  </header>
+
+  <div class="container">
+    <h2>Project Overview</h2>
+    <p>The Hostel Digital Logbook System modernizes hostel entry/exit management using QR codes, Google Forms, and Firebase. It enhances security, provides real-time tracking, and automates data entry.</p>
+
+    <h2>Key Features</h2>
+    <ul>
+      <li>Unique QR Code Generation for each student</li>
+      <li>Web-based Scanner Interface for wardens</li>
+      <li>Google Form Integration for real-time data logging</li>
+      <li>Firebase Backend for secure storage & retrieval</li>
+      <li>Admin Panel for monitoring & reporting</li>
+    </ul>
+
+    <h2>System Architecture</h2>
+    <ul>
+      <li>User Interface (Web-based dashboard for administrators & wardens)</li>
+      <li>Database (Firebase for secure storage & retrieval)</li>
+      <li>Backend (Manages authentication & data processing)</li>
+      <li>Integration Layer (Seamless connectivity with hostel management systems)</li>
+      <li>Security Layer (Data encryption & access control)</li>
+    </ul>
+
+    <h2>Technologies Used</h2>
+    <ul>
+      <li>Frontend: HTML, CSS, JavaScript</li>
+      <li>Backend: Firebase Realtime Database</li>
+      <li>QR Code Generation: Python & JavaScript</li>
+      <li>Cloud Hosting: Google Firebase & Azure</li>
+    </ul>
+
+    <h2>Project Demo / Screenshots</h2>
+    <br>
+    <img src="Hostel QR assests/Picture1.png" alt="Project Screenshot 1" width="40%">
+    <img src="Hostel QR assests/Picture2.png" alt="Project Screenshot 2" width="40%">
+    <img src="Hostel QR assests/Picture3.png" alt="Project Screenshot 3" width="80%">
+    <img src="Hostel QR assests/Picture4.png" alt="Project Screenshot 4" width="40%">
+    <img src="Hostel QR assests/Picture5.jpg" alt="Project Screenshot 5" width="40%">
+    <img src="Hostel QR assests/Picture6.png" alt="Project Screenshot 6" width="40%">
+    <img src="Hostel QR assests/Picture7.png" alt="Project Screenshot 7" width="40%">
+
+    <h2>Future Enhancements</h2>
+    <ul>
+      <li>Blockchain-based security for log entries</li>
+      <li>AI-driven analytics for student activity monitoring</li>
+      <li>Mobile app integration for easier access</li>
+    </ul>
+
+    <h2>References</h2>
+    <ul>
+      <li><a href="Hostel QR assests/rrp_final[1].pdf">Documentation</a></li>
+    </ul>
+
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  </div>
+
+  <script>
+    gsap.from(".animate", { opacity: 0, y: -50, duration: 1, stagger: 0.2 });
+  </script>
 </body>
 </html>
