@@ -282,53 +282,100 @@ button:hover {
             to build cutting-edge solutions. My expertise spans Java, Python, SQL, and Web Technologies.</p>
     </section>
     <section id="education">
-        <h2 style="color: gold;">Education</h2>
-        <div class="education">
-            <h3>B.Tech + M.S in Computer Science & Engineering</h3>
+        <h2 style="color: gold; text-align: center;">Education</h2>
+        <style>
+          .education {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            width: 80%;
+            transition: transform 0.3s ease;
+            color: #00ffff;
+            position: relative;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+          }
+      
+          .education:hover {
+            transform: scale(1.05);
+          }
+      
+          .education h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            position: relative;
+            margin-bottom: 10px;
+          }
+      
+          .education h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+            border-radius: 2px;
+          }
+      
+          .education p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 8px 0;
+  text-align: center; /* <-- This aligns all text inside cards */
+}
 
-            <style>
-              h3 {
-                font-family: 'Poppins', sans-serif;
-                font-weight: 700;
-                background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                text-align: center;
-                display: inline-block;
-                position: relative;
-              }
-            
-              h3::after {
-                content: '';
-                position: absolute;
-                left: 0;
-                bottom: -5px;
-                width: 100%;
-                height: 4px;
-                background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-                border-radius: 2px;
-              }
-            </style>
-                        <ul>
-                <li>JNTU Hyderabad | 2022 - Present | CGPA: 7.864/ SGPA: 9.00</li>
-                <li>Relevant Coursework: Artificial Intelligence, Data Analytics, Machine Learning, Natural Language Processing, Computer Networks.</li>
-            </ul>
-        </div>
+      
+          @media screen and (max-width: 768px) {
+            .education {
+              width: 90%;
+              padding: 15px;
+              text-align: center;
+            }
+      
+            .education h3 {
+              font-size: 1.2rem;
+              text-align: left;
+              text-align: center;
+            }
+      
+            .education p {
+              font-size: 0.95rem;
+              text-align: center;
+            }
+          }
+        </style>
+      
         <div class="education">
-            <h3>HSC - Physics, Chemistry, & Mathematics</h3>
-            <ul>
-                <li>Narayana College | 2022 | Percentage: 96</li>
-                <li>Completed with distinction, excelling in Mathematics and Physics.</li>
-            </ul>
+          <h3>B.Tech + M.S in Computer Science & Engineering</h3>
+          <p><strong>Institution:</strong> JNTU Hyderabad (Jawaharlal Nehru Technological University Hyderabad) </p>
+          <p><strong>Duration:</strong> 2022 - Present</p>
+          <p><strong>CGPA:</strong> 7.864 | <strong>SGPA:</strong> 9.00</p>
+          <p><strong>Coursework:</strong> Artificial Intelligence, Data Analytics, Machine Learning, NLP, Computer Networks</p>
         </div>
+      
         <div class="education">
-            <h3>SSC - Secondary School Certificate</h3>
-            <ul>
-                <li>Sri Vamshidhar High School (CBSE) | 2020</li>
-                
-            </ul>
+          <h3>HSC - Physics, Chemistry, & Mathematics</h3>
+          <p><strong>Institution:</strong> Narayana College</p>
+          <p><strong>Year:</strong> 2022</p>
+          <p><strong>Percentage:</strong> 96%</p>
+          <p><strong>Highlight:</strong> Distinction with excellence in Mathematics and Physics</p>
         </div>
-    </section>
+      
+        <div class="education">
+          <h3>SSC - Secondary School Certificate</h3>
+          <p><strong>Institution:</strong> Sri Vamshidhar High School (CBSE)</p>
+          <p><strong>Year:</strong> 2020</p>
+        </div>
+      </section>
+      
+      
     </nav>
     <section id="experience">
         <h2 style="color: gold;">Work Experience</h2>
@@ -340,7 +387,7 @@ button:hover {
                 <li>Utilizing Python, SQL, and visualization tools to interpret large datasets.</li>
                 <li>Generating reports and presentations for stakeholders based on analytical findings.</li>
             </ul>
-            <a href="#" class="view-project">View Project →</a>
+            <a style="background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);" href="#" class="view-project">View Project →</a>
         </div>
         <div class="experience">
             <h3>Java Developer - Infosys Springboard (Sep 2024 - Jan 2025)</h3>
@@ -350,7 +397,7 @@ button:hover {
                 <li>Optimized database queries, reducing query execution time by 40%.</li>
                 <li>Developed RESTful APIs to integrate the system with multiple platforms.</li>
             </ul>
-            <a href="expense.html" class="view-project">View Project →</a>
+            <a style="background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);" href="expense.html" class="view-project">View Project →</a>
         </div>
         <div class="experience">
             <h3>Web Developer Intern - F R T Microsoft (Jul 2023 - Sep 2023)</h3>
@@ -360,7 +407,7 @@ button:hover {
                 <li>Integrated real-time analytics to track student performance and behavior.</li>
                 <li>Implemented cloud-based storage and authentication for enhanced security.</li>
             </ul>
-            <a href="Microsoft-frt.html" class="view-project">View Project →</a>
+            <a style="background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);" href="Microsoft-frt.html" class="view-project">View Project →</a>
         </div>
         <div class="experience">
             <h3>Freelancer - Chegg India (Mar 2023 - May 2023)</h3>
@@ -370,7 +417,7 @@ button:hover {
                 <li>Maintained a 98% accuracy rating and received high student satisfaction scores.</li>
                 <li>Helped undergraduate students understand difficult programming concepts and algorithms.</li>
             </ul>
-            <a href="Chegg-work-certificate.pdf" class="view-project">View Certificate →</a>
+            <a href="Chegg-work-certificate.pdf" class="view-project" style="background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);">View Certificate →</a>
         </div>
     </section>
     <section id="projects">
@@ -383,7 +430,7 @@ button:hover {
                 <li>Integrated cloud-based logging to enhance data security and accessibility.</li>
                 <li>Designed an automated alert system for unauthorized entries.</li>
             </ul>
-            <a href="Hostel-QR.html" class="view-project">View Project →</a>
+            <a style="background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);" href="Hostel-QR.html" class="view-project">View Project →</a>
         </div>
         <div class="project">
             <h3>Hotel Booking System (Apr 2024)</h3>
@@ -392,7 +439,7 @@ button:hover {
                 <li>Implemented secure payment gateways to ensure seamless transactions.</li>
                 <li>Optimized search filters, improving user navigation experience.</li>
             </ul>
-            <a href="Hotel-booking.html" class="view-project">View Project →</a>
+            <a  style="background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);" href="Hotel-booking.html" class="view-project">View Project →</a>
         </div>
     </section>
     <section id="contact">
