@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Archive - Yashwanth Hudumula</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: white;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.9);
+      border-bottom: 1px solid #444;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 24px;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .go-back {
+      position: fixed;
+      top: 70px;
+      left: 20px;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
+
+    .go-back:hover {
+      transform: scale(1.05);
+    }
+
+    .resume-list {
+      margin-top: 140px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px;
+    }
+
+    .resume-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .resume-entry h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .view-button {
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    .view-button:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+
+    @media (max-width: 600px) {
+      .resume-entry {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .view-button {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>Resume Archive</h1>
+  </div>
+
+  <a href="index.html" class="go-back">← Go Back</a>
+
+  <div class="resume-list">
+    <div class="resume-entry">
+      <h2>Resume - May 2025</h2>
+      <a href="https://drive.google.com/file/d/1InOCA531zpiyYspVoN-Ol9ozxlm35hwa/view?usp=sharing" class="view-button" target="_blank">View Resume</a>
+    </div>
+    <div class="resume-entry">
+      <h2>Resume - April 2025</h2>
+      <a href="https://drive.google.com/file/d/1manIQBbJ69KB1pyP-EXpoDt6uE7RnZnF/view?usp=sharing" class="view-button" target="_blank">View Resume</a>
+    </div>
+    <div class="resume-entry">
+      <h2>Resume - March 2025</h2>
+      <a href="https://drive.google.com/file/d/1lAMhcBBTZ2ttz177bCm2tcncfvXLKpwj/view?usp=sharing" class="view-button" target="_blank">View Resume</a>
+    </div>
+  </div>
+</body>
+</html>
