@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Diabetes Prediction - Internship Project" />
+  <meta name="keywords" content="Diabetes Prediction, Machine Learning, Flask, IIIT Kottayam" />
+  <meta name="author" content="Yashwanth Hudumula" />
+  <title>Diabetes Prediction - Internship Project</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #00ffff;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    iframe {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    header {
+      padding: 50px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    h1::after, h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      border-radius: 2px;
+    }
+
+    p, li, a {
+      font-size: 1.1rem;
+      color: #00ffff;
+    }
+
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.21);
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .highlight-button {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .highlight-button:hover {
+      filter: brightness(1.1);
+      transform: scale(1.05);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <iframe src="https://my.spline.design/abstractnirvana-l77VNrZYtFNsGrOBapfKY0sx/"></iframe>
+
+  <header>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    <h1 class="animate">Diabetes Prediction System</h1>
+    <p class="animate">An interpretable web application using stacked ensemble machine learning</p>
+  </header>
+
+  <div class="container">
+    <h2>Project Overview</h2>
+    <p>This project, completed under the guidance of Dr. Sushitha Susan Joseph at IIIT Kottayam, focuses on early diabetes prediction using a stacked machine learning ensemble. The system integrates Random Forest, SVC, and KNN as base models with Logistic Regression as a meta-classifier, achieving 82% accuracy and an ROC-AUC score of 0.8719. It also uses LIME for explainability and is deployed via a Flask web app.</p>
+
+    <h2>Key Features</h2>
+    <ul>
+      <li>Stacked model: Random Forest, SVC, KNN + Logistic Regression</li>
+      <li>SMOTE for class imbalance handling</li>
+      <li>Chi-square feature selection with SelectKBest</li>
+      <li>Model explainability using LIME</li>
+      <li>Interactive Flask web application for predictions</li>
+    </ul>
+
+    <h2>Technologies Used</h2>
+    <ul>
+      <li>Python (scikit-learn, pandas, Flask, imbalanced-learn)</li>
+      <li>Frontend: HTML, CSS</li>
+      <li>Deployment: Flask web server</li>
+    </ul>
+
+    <h2>Internship Completion:</h2><br>
+    <a class="highlight-button" href="IITK internship completion certificate.pdf" target="_blank">View Internship Certificate</a>
+    <br> <br> <br> 
+    <a class="highlight-button" href="IIITK internship report final.pdf" target="_blank">View Project Document</a>
+
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  </div>
+
+  <script>
+    gsap.from(".animate", { opacity: 0, y: -50, duration: 1, stagger: 0.2 });
+  </script>
+</body>
+</html>
