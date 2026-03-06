@@ -1,166 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hostel Digital Logbook System - Project Overview" />
-  <meta name="keywords" content="Hostel Logbook, Digital Logbook, QR Code Entry, Firebase, Web Development" />
-  <meta name="author" content="Yashwanth Hudumula & Team" />
-  <title>Hostel Digital Logbook System</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #00ffff;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    iframe {
-      position: fixed;
-      z-index: -1;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    header {
-      padding: 50px 20px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
-      text-align: center;
-    }
-
-    h1, h2 {
-      font-weight: 700;
-      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-align: center;
-      display: inline-block;
-      position: relative;
-      margin-bottom: 30px;
-    }
-
-    h1::after, h2::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -8px;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-      border-radius: 2px;
-    }
-
-    p, li, a {
-      font-size: 1.1rem;
-      color: #00ffff;
-    }
-
-    .container {
-      width: 80%;
-      margin: auto;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
-      text-align: left;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    .back-link {
-      display: block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #00ffff;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    img {
-      margin: 10px;
-      border-radius: 8px;
-      border: 2px solid #00ffff;
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Hostel Digital Logbook System — QR Code Project by Yashwanth Hudumula"/>
+<title>Hostel Digital Logbook System — Yashwanth Hudumula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F5C842;--gold-dim:#c9a22d;--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--border:rgba(255,255,255,0.07);--text:#E8E8E0;--text-dim:#888880;--text-muted:#555550;--white:#FAFAF5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.4}
+::selection{background:var(--gold);color:#000}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(245,200,66,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease-out}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3.5rem;background:rgba(10,10,10,.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-dim);text-decoration:none;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}.nav-back:hover{color:var(--gold)}
+.page-hero{padding:9rem 3.5rem 5rem;max-width:1100px;margin:0 auto}
+.page-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}.page-tag::before{content:'//';font-weight:700}
+.page-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:1rem}.page-title span{color:var(--gold)}
+.page-subtitle{font-size:1.05rem;color:var(--text-dim);max-width:620px;margin-bottom:2rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem}
+.badge{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;border:1px solid var(--border);color:var(--text-muted)}.badge.gold{border-color:rgba(245,200,66,.4);color:var(--gold);background:rgba(245,200,66,.05)}
+.btn-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-p{background:var(--gold);color:#000;padding:.7rem 1.6rem;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;display:inline-flex;align-items:center;gap:.4rem;transition:background .2s,transform .2s}.btn-p:hover{background:var(--white);transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--text);padding:.7rem 1.6rem;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:.4rem;transition:border-color .2s,color .2s,transform .2s}.btn-g:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.page-content{max-width:1100px;margin:0 auto;padding:0 3.5rem 6rem}
+.section{margin-bottom:4rem}
+.section-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}.section-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.section-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:1.5rem}
+p{color:var(--text-dim);margin-bottom:1rem}strong{color:var(--text);font-weight:500}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.feature-card{background:var(--bg2);padding:1.4rem;transition:background .2s}.feature-card:hover{background:var(--bg3)}
+.fc-icon{font-size:1.6rem;margin-bottom:.7rem}
+.fc-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+.fc-desc{font-size:.82rem;color:var(--text-muted);line-height:1.6}
+.arch-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.arch-item{background:var(--bg2);padding:1rem 1.3rem;display:flex;align-items:center;gap:1rem;transition:background .2s}.arch-item:hover{background:var(--bg3)}
+.arch-num{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--gold);flex-shrink:0;width:28px}
+.arch-text strong{display:block;font-family:'Syne',sans-serif;font-size:.88rem;font-weight:600;color:var(--white)}
+.arch-text span{font-size:.78rem;color:var(--text-muted)}
+.tech-grid{display:flex;flex-wrap:wrap;gap:.6rem}
+.tech-tag{font-size:.78rem;color:var(--text-dim);background:var(--bg3);border:1px solid var(--border);padding:.3rem .9rem;border-radius:2px;transition:border-color .2s,color .2s}.tech-tag:hover{border-color:var(--gold);color:var(--gold)}
+.divider{height:1px;background:var(--border);margin:3rem 0}
+.linkedin-float{position:fixed;bottom:2rem;right:2rem;z-index:8000;background:white;padding:6px;border-radius:50%;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .3s;cursor:none}.linkedin-float:hover{transform:scale(1.12)}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.page-hero,.page-content{padding-left:1.5rem;padding-right:1.5rem}}
+</style>
 </head>
 <body>
-  <iframe src="https://my.spline.design/abstractnirvana-l77VNrZYtFNsGrOBapfKY0sx/"></iframe>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<nav>
+  <a href="index.html" class="nav-logo">YH<span>.</span></a>
+  <a href="index.html" class="nav-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to Portfolio</a>
+</nav>
 
-  <header>
-    <a href="index.html" class="back-link">← Back to Portfolio</a>
-    <h1 class="animate">Hostel Digital Logbook System</h1>
-    <p class="animate">Efficient hostel management using QR codes, Firebase & Web Technologies</p>
-  </header>
+<div class="page-hero">
+  <div class="page-tag">IoT · Web · Firebase</div>
+  <h1 class="page-title">Hostel Digital<br><span>Logbook System</span></h1>
+  <p class="page-subtitle">A QR code-based hostel entry and exit management system with real-time monitoring, automated alerts, and Firebase-powered data storage.</p>
+  <div class="badge-row">
+    <span class="badge gold">Personal Project</span>
+    <span class="badge">May — Jul 2024</span>
+    <span class="badge">Web + Firebase + QR Code</span>
+  </div>
+  <div class="btn-row">
+    <a href="Hostel QR assests/rrp_final[1].pdf" target="_blank" class="btn-p">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Documentation
+    </a>
+    <a href="https://github.com/YashwanthHudumula" target="_blank" class="btn-g">GitHub</a>
+  </div>
+</div>
 
-  <div class="container">
-    <h2>Project Overview</h2>
-    <p>The Hostel Digital Logbook System modernizes hostel entry/exit management using QR codes, Google Forms, and Firebase. It enhances security, provides real-time tracking, and automates data entry.</p>
+<div class="page-content">
 
-    <h2>Key Features</h2>
-    <ul>
-      <li>Unique QR Code Generation for each student</li>
-      <li>Web-based Scanner Interface for wardens</li>
-      <li>Google Form Integration for real-time data logging</li>
-      <li>Firebase Backend for secure storage & retrieval</li>
-      <li>Admin Panel for monitoring & reporting</li>
-    </ul>
-
-    <h2>System Architecture</h2>
-    <ul>
-      <li>User Interface (Web-based dashboard for administrators & wardens)</li>
-      <li>Database (Firebase for secure storage & retrieval)</li>
-      <li>Backend (Manages authentication & data processing)</li>
-      <li>Integration Layer (Seamless connectivity with hostel management systems)</li>
-      <li>Security Layer (Data encryption & access control)</li>
-    </ul>
-
-    <h2>Technologies Used</h2>
-    <ul>
-      <li>Frontend: HTML, CSS, JavaScript</li>
-      <li>Backend: Firebase Realtime Database</li>
-      <li>QR Code Generation: Python & JavaScript</li>
-      <li>Cloud Hosting: Google Firebase & Azure</li>
-    </ul>
-
-    <h2>Project Demo / Screenshots</h2>
-    <br>
-    <img src="Hostel QR assests/Picture1.png" alt="Project Screenshot 1" width="40%">
-    <img src="Hostel QR assests/Picture2.png" alt="Project Screenshot 2" width="40%">
-    <img src="Hostel QR assests/Picture3.png" alt="Project Screenshot 3" width="80%">
-    <img src="Hostel QR assests/Picture4.png" alt="Project Screenshot 4" width="40%">
-    <img src="Hostel QR assests/Picture5.jpg" alt="Project Screenshot 5" width="40%">
-    <img src="Hostel QR assests/Picture6.png" alt="Project Screenshot 6" width="40%">
-    <img src="Hostel QR assests/Picture7.png" alt="Project Screenshot 7" width="40%">
-
-    <h2>Future Enhancements</h2>
-    <ul>
-      <li>Blockchain-based security for log entries</li>
-      <li>AI-driven analytics for student activity monitoring</li>
-      <li>Mobile app integration for easier access</li>
-    </ul>
-
-    <h2>References</h2>
-    <ul>
-      <li><a href="Hostel QR assests/rrp_final[1].pdf">Documentation</a></li>
-    </ul>
-
-    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <div class="section-title">Project Overview</div>
+    <p>The Hostel Digital Logbook System modernizes hostel entry and exit management using <strong>QR codes, Google Forms, and Firebase</strong>. It replaces manual paper-based logbooks with a digital system that enhances security, provides real-time tracking, and automates data entry for hostel wardens and administrators.</p>
+    <p>Each student is assigned a <strong>unique QR code</strong>. When scanned by the warden's web-based interface, the system automatically logs the entry/exit with timestamp and syncs to Firebase in real time.</p>
   </div>
 
-  <script>
-    gsap.from(".animate", { opacity: 0, y: -50, duration: 1, stagger: 0.2 });
-  </script>
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Features</div>
+    <div class="section-title">Key Features</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon">📱</div>
+        <div class="fc-title">Unique QR Code Per Student</div>
+        <div class="fc-desc">Auto-generated QR codes tied to each student's profile and room details.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🖥️</div>
+        <div class="fc-title">Web-Based Scanner</div>
+        <div class="fc-desc">Browser-based QR scanner interface for wardens — no extra hardware needed.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">⚡</div>
+        <div class="fc-title">Real-Time Firebase Logging</div>
+        <div class="fc-desc">Instant sync to Firebase Realtime Database on every scan, zero latency.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🔔</div>
+        <div class="fc-title">Automated Alert System</div>
+        <div class="fc-desc">Instant notifications for unauthorized entry attempts or curfew breaches.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📋</div>
+        <div class="fc-title">Admin Dashboard</div>
+        <div class="fc-desc">Monitor all entry/exit activity, filter by student, date, or time range.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🔒</div>
+        <div class="fc-title">Data Encryption</div>
+        <div class="fc-desc">Security layer with encrypted storage and access-controlled admin panel.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Architecture</div>
+    <div class="section-title">System Architecture</div>
+    <div class="arch-list">
+      <div class="arch-item"><div class="arch-num">01</div><div class="arch-text"><strong>User Interface</strong><span>Web-based dashboard for administrators and wardens</span></div></div>
+      <div class="arch-item"><div class="arch-num">02</div><div class="arch-text"><strong>QR Generation Layer</strong><span>Python + JavaScript QR generation tied to student profiles</span></div></div>
+      <div class="arch-item"><div class="arch-num">03</div><div class="arch-text"><strong>Scanner Interface</strong><span>Browser-based QR scanner using JavaScript camera API</span></div></div>
+      <div class="arch-item"><div class="arch-num">04</div><div class="arch-text"><strong>Google Forms Integration</strong><span>Automatic form submission for structured data logging</span></div></div>
+      <div class="arch-item"><div class="arch-num">05</div><div class="arch-text"><strong>Firebase Backend</strong><span>Realtime Database for secure storage, retrieval and sync</span></div></div>
+      <div class="arch-item"><div class="arch-num">06</div><div class="arch-text"><strong>Security Layer</strong><span>Data encryption and role-based access control</span></div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Technology</div>
+    <div class="section-title">Tech Stack</div>
+    <div class="tech-grid">
+      <span class="tech-tag">HTML / CSS / JavaScript</span>
+      <span class="tech-tag">Python (QR Generation)</span>
+      <span class="tech-tag">Firebase Realtime Database</span>
+      <span class="tech-tag">Google Forms API</span>
+      <span class="tech-tag">Azure Hosting</span>
+      <span class="tech-tag">QR Code Libraries</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Future</div>
+    <div class="section-title">Future Enhancements</div>
+    <p>• <strong>Blockchain-based security</strong> for tamper-proof log entries.</p>
+    <p>• <strong>AI-driven analytics</strong> for student activity pattern monitoring.</p>
+    <p>• <strong>Mobile app</strong> for students to view their own entry/exit history.</p>
+  </div>
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+  <span style="font-size:.78rem;color:var(--text-muted)">Hostel Digital Logbook System · 2024</span>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+</footer>
+
+<a href="https://linkedin.com/in/hudumula-yashwanth" target="_blank" class="linkedin-float">
+  <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=000000" alt="LinkedIn" width="44" height="44">
+</a>
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cursor.style.left=cx+'px';cursor.style.top=cy+'px'});
+(function anim(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expand'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expand'))});
+</script>
 </body>
 </html>

@@ -1,133 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resume Archive - Yashwanth Hudumula</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #000;
-      color: white;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Resume Archive — Yashwanth Hudumula"/>
+<title>Resume Archive — Yashwanth Hudumula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F5C842;--gold-dim:#c9a22d;--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--border:rgba(255,255,255,0.07);--text:#E8E8E0;--text-dim:#888880;--text-muted:#555550;--white:#FAFAF5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.4}
+::selection{background:var(--gold);color:#000}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(245,200,66,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease-out}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3.5rem;background:rgba(10,10,10,.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-dim);text-decoration:none;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}.nav-back:hover{color:var(--gold)}
 
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 15px 20px;
-      background: rgba(0, 0, 0, 0.9);
-      border-bottom: 1px solid #444;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+.page-hero{padding:9rem 3.5rem 4rem;max-width:900px;margin:0 auto;text-align:center}
+.page-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}.page-tag::before{content:'//';font-weight:700}
+.page-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,4rem);line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:1rem}.page-title span{color:var(--gold)}
+.page-subtitle{font-size:1rem;color:var(--text-muted);max-width:480px;margin:0 auto 2.5rem}
 
-    .navbar h1 {
-      margin: 0;
-      font-size: 24px;
-      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.resume-list{max-width:700px;margin:0 auto;padding:0 3.5rem 6rem;display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.resume-entry{background:var(--bg2);padding:1.4rem 1.6rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;transition:background .2s}.resume-entry:hover{background:var(--bg3)}
+.re-left{}
+.re-version{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.2rem}
+.re-date{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}
+.re-badge{display:inline-block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:20px;border:1px solid rgba(245,200,66,.35);color:var(--gold);background:rgba(245,200,66,.05);margin-top:.4rem}
+.view-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:#000;padding:.55rem 1.2rem;border-radius:2px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .2s;white-space:nowrap;flex-shrink:0}.view-btn:hover{background:var(--white);transform:translateY(-1px)}
 
-    .go-back {
-      position: fixed;
-      top: 70px;
-      left: 20px;
-      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: transform 0.2s ease;
-      z-index: 1000;
-    }
-
-    .go-back:hover {
-      transform: scale(1.05);
-    }
-
-    .resume-list {
-      margin-top: 140px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 20px;
-    }
-
-    .resume-entry {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
-    .resume-entry h2 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    .view-button {
-      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: transform 0.2s ease;
-    }
-
-    .view-button:hover {
-      transform: scale(1.05);
-      filter: brightness(1.1);
-    }
-
-    @media (max-width: 600px) {
-      .resume-entry {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .view-button {
-        margin-top: 10px;
-      }
-    }
-  </style>
+.linkedin-float{position:fixed;bottom:2rem;right:2rem;z-index:8000;background:white;padding:6px;border-radius:50%;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .3s;cursor:none}.linkedin-float:hover{transform:scale(1.12)}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.page-hero{padding-left:1.5rem;padding-right:1.5rem}.resume-list{padding-left:1.5rem;padding-right:1.5rem;margin:0 1.5rem}.resume-entry{flex-direction:column;align-items:flex-start}}
+</style>
 </head>
 <body>
-  <div class="navbar">
-    <h1>Resume Archive</h1>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<nav>
+  <a href="index.html" class="nav-logo">YH<span>.</span></a>
+  <a href="index.html" class="nav-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to Portfolio</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-tag">Documents</div>
+  <h1 class="page-title">Resume <span>Archive</span></h1>
+  <p class="page-subtitle">All versions of my resume — always keeping the latest one updated.</p>
+</div>
+
+<div style="max-width:700px;margin:0 auto;padding:0 3.5rem 6rem">
+  <div style="display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+
+    <div class="resume-entry">
+      <div class="re-left">
+        <div class="re-version">Resume — Dec 2025</div>
+        <div class="re-date">December 2025</div>
+        <span class="re-badge">Latest</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1aVPT-CrP4E4oGJCfGrOlnb_46q1-Lz_p/view?usp=sharing" target="_blank" class="view-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View
+      </a>
+    </div>
+
+    <div class="resume-entry">
+      <div class="re-left">
+        <div class="re-version">Resume — May 2025</div>
+        <div class="re-date">May 2025</div>
+      </div>
+      <a href="https://drive.google.com/file/d/1InOCA531zpiyYspVoN-Ol9ozxlm35hwa/view?usp=sharing" target="_blank" class="view-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View
+      </a>
+    </div>
+
+    <div class="resume-entry">
+      <div class="re-left">
+        <div class="re-version">Resume — April 2025</div>
+        <div class="re-date">April 2025</div>
+      </div>
+      <a href="https://drive.google.com/file/d/1manIQBbJ69KB1pyP-EXpoDt6uE7RnZnF/view?usp=sharing" target="_blank" class="view-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View
+      </a>
+    </div>
+
+    <div class="resume-entry">
+      <div class="re-left">
+        <div class="re-version">Resume — March 2025</div>
+        <div class="re-date">March 2025</div>
+      </div>
+      <a href="https://drive.google.com/file/d/1lAMhcBBTZ2ttz177bCm2tcncfvXLKpwj/view?usp=sharing" target="_blank" class="view-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View
+      </a>
+    </div>
+
   </div>
+</div>
 
-  <a href="index.html" class="go-back">← Go Back</a>
-
-  <div class="resume-list">
-
-    <div class="resume-entry">
-      <h2>Resume - Dec 2025</h2>
-      <a href="https://drive.google.com/file/d/1aVPT-CrP4E4oGJCfGrOlnb_46q1-Lz_p/view?usp=sharing" class="view-button" target="_blank">View Resume</a>
-    </div>
-
-    <div class="resume-entry">
-      <h2>Resume - May 2025</h2>
-      <a href="https://drive.google.com/file/d/1InOCA531zpiyYspVoN-Ol9ozxlm35hwa/view?usp=sharing" class="view-button" target="_blank">View Resume</a>
-    </div>
-    <div class="resume-entry">
-      <h2>Resume - April 2025</h2>
-      <a href="https://drive.google.com/file/d/1manIQBbJ69KB1pyP-EXpoDt6uE7RnZnF/view?usp=sharing" class="view-button" target="_blank">View Resume</a>
-    </div>
-    <div class="resume-entry">
-      <h2>Resume - March 2025</h2>
-      <a href="https://drive.google.com/file/d/1lAMhcBBTZ2ttz177bCm2tcncfvXLKpwj/view?usp=sharing" class="view-button" target="_blank">View Resume</a>
-    </div>
-  </div>
+<a href="https://linkedin.com/in/hudumula-yashwanth" target="_blank" class="linkedin-float">
+  <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=000000" alt="LinkedIn" width="44" height="44">
+</a>
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cursor.style.left=cx+'px';cursor.style.top=cy+'px'});
+(function anim(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expand'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expand'))});
+</script>
 </body>
 </html>

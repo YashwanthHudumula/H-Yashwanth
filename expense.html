@@ -1,151 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Expense Management System - Infosys Internship Project" />
-  <meta name="keywords" content="Expense Management, Web Application, Infosys Internship, Finance Tracking" />
-  <meta name="author" content="Yashwanth Hudumula" />
-  <title>Expense Management System - Infosys Internship Project</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #00ffff;
-      position: relative;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Expense Management System — Infosys Springboard Internship Project by Yashwanth Hudumula"/>
+<title>Expense Management System — Yashwanth Hudumula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F5C842;--gold-dim:#c9a22d;--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--bg4:#1c1c1c;--border:rgba(255,255,255,0.07);--text:#E8E8E0;--text-dim:#888880;--text-muted:#555550;--white:#FAFAF5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.4}
+::selection{background:var(--gold);color:#000}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(245,200,66,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease-out}
 
-    iframe {
-      position: fixed;
-      z-index: -1;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3.5rem;background:rgba(10,10,10,.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-dim);text-decoration:none;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}.nav-back:hover{color:var(--gold)}
 
-    header {
-      padding: 50px 20px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
-      text-align: center;
-    }
+/* HERO */
+.page-hero{padding:9rem 3.5rem 5rem;max-width:1100px;margin:0 auto;position:relative}
+.page-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.page-tag::before{content:'//';font-weight:700}
+.page-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:1rem}
+.page-title span{color:var(--gold)}
+.page-subtitle{font-size:1.05rem;color:var(--text-dim);max-width:600px;margin-bottom:2rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem}
+.badge{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;border:1px solid var(--border);color:var(--text-muted)}
+.badge.gold{border-color:rgba(245,200,66,.4);color:var(--gold);background:rgba(245,200,66,.05)}
+.btn-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-p{background:var(--gold);color:#000;padding:.7rem 1.6rem;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;display:inline-flex;align-items:center;gap:.4rem;transition:background .2s,transform .2s}.btn-p:hover{background:var(--white);transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--text);padding:.7rem 1.6rem;font-size:.82rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:.4rem;transition:border-color .2s,color .2s,transform .2s}.btn-g:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 
-    h1, h2 {
-  font-weight: 700;
-  background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-align: center;
-  display: inline-block;
-  position: relative;
-  margin-bottom: 30px;
+/* CONTENT */
+.page-content{max-width:1100px;margin:0 auto;padding:0 3.5rem 6rem}
+.section{margin-bottom:4rem}
+.section-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}.section-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.section-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:1.5rem}
+p{color:var(--text-dim);margin-bottom:1rem}
+strong{color:var(--text);font-weight:500}
+
+/* FEATURE GRID */
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.feature-card{background:var(--bg2);padding:1.4rem;transition:background .2s}.feature-card:hover{background:var(--bg3)}
+.fc-icon{font-size:1.6rem;margin-bottom:.7rem}
+.fc-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+.fc-desc{font-size:.82rem;color:var(--text-muted);line-height:1.6}
+
+/* TECH STACK */
+.tech-grid{display:flex;flex-wrap:wrap;gap:.6rem}
+.tech-tag{font-size:.78rem;color:var(--text-dim);background:var(--bg3);border:1px solid var(--border);padding:.3rem .9rem;border-radius:2px;transition:border-color .2s,color .2s}.tech-tag:hover{border-color:var(--gold);color:var(--gold)}
+
+/* METRICS */
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.metric-box{background:var(--bg2);padding:1.5rem;text-align:center}.metric-box:hover{background:var(--bg3)}
+.m-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--gold);line-height:1}
+.m-label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-top:.3rem}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:3rem 0}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1100px;margin:0 auto}
+.footer-copy{font-size:.78rem;color:var(--text-muted)}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .page-hero,.page-content{padding-left:1.5rem;padding-right:1.5rem}
+  .metrics-row{grid-template-columns:1fr 1fr}
+  footer{padding:1.5rem}
 }
 
-h1::after, h2::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-  border-radius: 2px;
-}
-
-
-    p, li {
-      font-size: 1.1rem;
-      color: #00ffff;
-    }
-
-    .container {
-      width: 80%;
-      margin: auto;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.292);
-      border-radius: 10px;
-      text-align: left;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    .highlight-button {
-      display: inline-block;
-      padding: 15px 25px;
-      font-size: 18px;
-      font-weight: bold;
-      color: white;
-      background: linear-gradient(90deg, #FFD700, #DA70D6, #00FFFF);
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .highlight-button:hover {
-      filter: brightness(1.1);
-      transform: scale(1.05);
-    }
-
-    .back-link {
-      display: block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #00ffff;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
-  </style>
+/* LinkedIn float */
+.linkedin-float{position:fixed;bottom:2rem;right:2rem;z-index:8000;background:white;padding:6px;border-radius:50%;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .3s;cursor:none}.linkedin-float:hover{transform:scale(1.12)}
+</style>
 </head>
 <body>
-  <iframe src="https://my.spline.design/abstractnirvana-l77VNrZYtFNsGrOBapfKY0sx/"></iframe>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-  <header>
-    <a href="index.html" class="back-link">← Back to Portfolio</a>
-    <h1 class="animate">Expense Management System</h1>
-    <p class="animate">A user-friendly web application for tracking and managing expenses</p>
-  </header>
+<nav>
+  <a href="index.html" class="nav-logo">YH<span>.</span></a>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Portfolio
+  </a>
+</nav>
 
-  <div class="container">
-    <h2>Project Overview</h2>
-    <p>This project was developed as part of my internship at Infosys. It provides an efficient system for tracking, managing, and analyzing expenses to ensure transparency and automation in financial management.</p>
+<div class="page-hero">
+  <div class="page-tag">Full Stack · Java Developer Internship</div>
+  <h1 class="page-title">Expense<br><span>Management System</span></h1>
+  <p class="page-subtitle">An enterprise-grade full-stack application for tracking, managing, and analyzing expenses — developed during my internship at Infosys Springboard.</p>
+  <div class="badge-row">
+    <span class="badge gold">Infosys Springboard</span>
+    <span class="badge">Sep 2024 — Jan 2025</span>
+    <span class="badge">Web Application Developer</span>
+    <span class="badge">Team Lead</span>
+  </div>
+  <div class="btn-row">
+    <a href="Infosys-internship-certificate.pdf" target="_blank" class="btn-p">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      View Certificate
+    </a>
+    <a href="ABSTRACT-GROUP-2-EXPENSE-MANAGEMENT.pptx" target="_blank" class="btn-g">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Presentation
+    </a>
+    <a href="https://github.com/YashwanthHudumula" target="_blank" class="btn-g">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+  </div>
+</div>
 
-    <h2>Key Features</h2>
-    <ul>
-      <li>Secure user registration and role-based dashboard access</li>
-      <li>Interface for adding, updating, and managing expenses</li>
-      <li>AI-powered categorization of expenses</li>
-      <li>Real-time notifications and secure backend management</li>
-    </ul>
+<div class="page-content">
 
-    <h2>Technologies Used</h2>
-    <ul>
-      <li>Frontend: React</li>
-      <li>Backend: Spring Boot</li>
-      <li>Database: MySQL</li>
-      <li>Cloud Hosting: Microsoft Azure</li>
-    </ul>
-
-    <h2>Internship Completion:</h2>
-    <a class="highlight-button" href="ABSTRACT-GROUP-2-EXPENSE-MANAGEMENT.pptx">Documentation/Presentation</a><br /><br />
-    <a class="highlight-button" href="Infosys-internship-certificate.pdf" target="_blank">View Internship Certificate</a>
-
-    <a href="index.html" class="back-link">← Back to Portfolio</a>
+  <div class="metrics-row">
+    <div class="metric-box"><div class="m-num">100K+</div><div class="m-label">Records Handled</div></div>
+    <div class="metric-box"><div class="m-num">40%</div><div class="m-label">Query Speed Gain</div></div>
+    <div class="metric-box"><div class="m-num">99.9%</div><div class="m-label">Azure Uptime</div></div>
   </div>
 
-  <script>
-    gsap.from(".animate", { opacity: 0, y: -50, duration: 1, stagger: 0.2 });
-  </script>
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <div class="section-title">Project Overview</div>
+    <p>This project was developed during my internship at <strong>Infosys Springboard</strong> as part of a full-stack team. The Expense Management System provides an efficient solution for tracking, managing, and analyzing expenses, ensuring transparency and automation in financial management across organizations.</p>
+    <p>I led the team and was responsible for both the backend architecture and frontend integration, managing a system that handles <strong>100,000+ records</strong> with optimized performance and secure access control.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Features</div>
+    <div class="section-title">Key Features</div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon">🔐</div>
+        <div class="fc-title">Role-Based Authentication</div>
+        <div class="fc-desc">Secure login with Admin, Manager, and Employee roles with different access levels.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">💸</div>
+        <div class="fc-title">Expense Tracking</div>
+        <div class="fc-desc">Add, update, categorize and manage expenses with full audit trail and history.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🤖</div>
+        <div class="fc-title">AI-Powered Categorization</div>
+        <div class="fc-desc">Automated expense categorization using machine learning to reduce manual entry.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🔔</div>
+        <div class="fc-title">Real-Time Notifications</div>
+        <div class="fc-desc">Instant alerts for expense approvals, rejections, and budget threshold breaches.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📊</div>
+        <div class="fc-title">Analytics Dashboard</div>
+        <div class="fc-desc">Visual reports and spending insights with charts, filters, and export options.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">☁️</div>
+        <div class="fc-title">Cloud Deployed</div>
+        <div class="fc-desc">Hosted on Microsoft Azure for scalability, reliability, and global accessibility.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Technology</div>
+    <div class="section-title">Tech Stack</div>
+    <div class="tech-grid">
+      <span class="tech-tag">React.js</span>
+      <span class="tech-tag">Spring Boot</span>
+      <span class="tech-tag">Java</span>
+      <span class="tech-tag">MySQL</span>
+      <span class="tech-tag">Microsoft Azure</span>
+      <span class="tech-tag">REST APIs</span>
+      <span class="tech-tag">JWT Authentication</span>
+      <span class="tech-tag">Hibernate</span>
+      <span class="tech-tag">Maven</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Contributions</div>
+    <div class="section-title">My Role &amp; Achievements</div>
+    <p>• Led a team of developers to deliver the system end-to-end within the internship timeline.</p>
+    <p>• Implemented <strong>role-based access control (RBAC)</strong> ensuring data security and user authentication.</p>
+    <p>• Optimized database queries reducing execution time by <strong>40%</strong> through indexing and query restructuring.</p>
+    <p>• Developed <strong>RESTful APIs</strong> using Spring Boot to integrate the system with multiple platforms.</p>
+    <p>• Deployed the application on <strong>Microsoft Azure</strong>, achieving high availability and scalability.</p>
+  </div>
+
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+  <span class="footer-copy">Expense Management System · Infosys Springboard · 2024</span>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+</footer>
+
+<a href="https://linkedin.com/in/hudumula-yashwanth" target="_blank" class="linkedin-float" aria-label="LinkedIn">
+  <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=000000" alt="LinkedIn" width="44" height="44">
+</a>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cursor.style.left=cx+'px';cursor.style.top=cy+'px'});
+(function anim(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expand'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expand'))});
+</script>
 </body>
 </html>

@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Sterling Homes Booking System — Java Swing Desktop Application by Yashwanth Hudumula"/>
-<title>Sterling Homes Booking System — Yashwanth Hudumula</title>
+<meta name="description" content="Diabetes Prediction System — IIIT Kottayam Research Internship by Yashwanth Hudumula"/>
+<title>Diabetes Prediction System — Yashwanth Hudumula</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#F5C842;--gold-dim:#c9a22d;--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--border:rgba(255,255,255,0.07);--text:#E8E8E0;--text-dim:#888880;--text-muted:#555550;--white:#FAFAF5}
+:root{--gold:#F5C842;--gold-dim:#c9a22d;--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--bg4:#1c1c1c;--border:rgba(255,255,255,0.07);--text:#E8E8E0;--text-dim:#888880;--text-muted:#555550;--white:#FAFAF5}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none}
@@ -28,28 +28,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .badge{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;border:1px solid var(--border);color:var(--text-muted)}.badge.gold{border-color:rgba(245,200,66,.4);color:var(--gold);background:rgba(245,200,66,.05)}
 .btn-row{display:flex;gap:1rem;flex-wrap:wrap}
 .btn-p{background:var(--gold);color:#000;padding:.7rem 1.6rem;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;display:inline-flex;align-items:center;gap:.4rem;transition:background .2s,transform .2s}.btn-p:hover{background:var(--white);transform:translateY(-2px)}
-.btn-g{background:transparent;color:var(--text);padding:.7rem 1.6rem;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:.4rem;transition:border-color .2s,color .2s,transform .2s}.btn-g:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--text);padding:.7rem 1.6rem;font-size:.82rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:.4rem;transition:border-color .2s,color .2s,transform .2s}.btn-g:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
 .page-content{max-width:1100px;margin:0 auto;padding:0 3.5rem 6rem}
 .section{margin-bottom:4rem}
 .section-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}.section-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
 .section-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:1.5rem}
 p{color:var(--text-dim);margin-bottom:1rem}strong{color:var(--text);font-weight:500}
-.locations-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
-.loc-card{background:var(--bg2);padding:1.2rem;text-align:center;transition:background .2s}.loc-card:hover{background:var(--bg3)}
-.loc-icon{font-size:1.8rem;margin-bottom:.5rem}
-.loc-name{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:600;color:var(--white)}
-.flow-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
-.flow-card{background:var(--bg2);padding:1.3rem;transition:background .2s}.flow-card:hover{background:var(--bg3)}
-.flow-step{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
-.flow-title{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:600;color:var(--white);margin-bottom:.3rem}
-.flow-desc{font-size:.78rem;color:var(--text-muted);line-height:1.5}
-.comp-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
-.comp-tag{font-size:.75rem;color:var(--text-dim);background:var(--bg3);border:1px solid var(--border);padding:.25rem .7rem;border-radius:2px}
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.metric-box{background:var(--bg2);padding:1.5rem;text-align:center;transition:background .2s}.metric-box:hover{background:var(--bg3)}
+.m-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--gold);line-height:1}
+.m-label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-top:.3rem}
+.pipeline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.pipeline-card{background:var(--bg2);padding:1.3rem;transition:background .2s;position:relative}.pipeline-card:hover{background:var(--bg3)}
+.pc-step{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.pc-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.3rem}
+.pc-desc{font-size:.8rem;color:var(--text-muted);line-height:1.5}
 .tech-grid{display:flex;flex-wrap:wrap;gap:.6rem}
 .tech-tag{font-size:.78rem;color:var(--text-dim);background:var(--bg3);border:1px solid var(--border);padding:.3rem .9rem;border-radius:2px;transition:border-color .2s,color .2s}.tech-tag:hover{border-color:var(--gold);color:var(--gold)}
 .divider{height:1px;background:var(--border);margin:3rem 0}
 .linkedin-float{position:fixed;bottom:2rem;right:2rem;z-index:8000;background:white;padding:6px;border-radius:50%;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .3s;cursor:none}.linkedin-float:hover{transform:scale(1.12)}
-@media(max-width:768px){nav{padding:1rem 1.5rem}.page-hero,.page-content{padding-left:1.5rem;padding-right:1.5rem}}
+@media(max-width:768px){nav{padding:1rem 1.5rem}.page-hero,.page-content{padding-left:1.5rem;padding-right:1.5rem}.metrics-row{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -61,70 +59,80 @@ p{color:var(--text-dim);margin-bottom:1rem}strong{color:var(--text);font-weight:
 </nav>
 
 <div class="page-hero">
-  <div class="page-tag">Desktop App · Java Swing</div>
-  <h1 class="page-title">Sterling Homes<br><span>Booking System</span></h1>
-  <p class="page-subtitle">A Java Swing-based desktop hotel reservation application with full booking workflow, dynamic receipt generation, and multi-location support across India.</p>
+  <div class="page-tag">Research Internship · ML Healthcare</div>
+  <h1 class="page-title">Diabetes<br><span>Prediction System</span></h1>
+  <p class="page-subtitle">An interpretable machine learning web application using a stacked ensemble model for early diabetes prediction — developed during my Summer Research Internship at IIIT Kottayam.</p>
   <div class="badge-row">
-    <span class="badge gold">Desktop Application</span>
-    <span class="badge">April 2024</span>
-    <span class="badge">Java Swing · JDBC · MySQL</span>
+    <span class="badge gold">IIIT Kottayam</span>
+    <span class="badge">May 2025 — July 2025</span>
+    <span class="badge">Under Dr. Sushitha Susan Joseph</span>
+    <span class="badge">Research Intern</span>
   </div>
   <div class="btn-row">
-    <a href="Hotel booking assets/Abstract.pdf" target="_blank" class="btn-p">
+    <a href="IITK internship completion certificate.pdf" target="_blank" class="btn-p">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Documentation
+      View Certificate
     </a>
+    <a href="IIITK internship report final.pdf" target="_blank" class="btn-g">View Report</a>
     <a href="https://github.com/YashwanthHudumula" target="_blank" class="btn-g">GitHub</a>
   </div>
 </div>
 
 <div class="page-content">
+  <div class="metrics-row">
+    <div class="metric-box"><div class="m-num">82%</div><div class="m-label">Accuracy</div></div>
+    <div class="metric-box"><div class="m-num">0.87</div><div class="m-label">ROC-AUC Score</div></div>
+    <div class="metric-box"><div class="m-num">3+1</div><div class="m-label">Stacked Models</div></div>
+  </div>
 
   <div class="section">
     <div class="section-label">Overview</div>
     <div class="section-title">Project Overview</div>
-    <p>The <strong>Sterling Homes Booking System</strong> is a fully functional Java Swing desktop application designed for seamless hotel reservation management. Built with an intuitive GUI using Java AWT and Swing components, it allows users to browse hotels, configure their stay details, and receive instant booking receipts.</p>
-    <p>The system integrates <strong>JDBC and MySQL</strong> for persistent booking storage, supporting multiple hotel locations across India with custom room configurations, meal preferences, and payment methods.</p>
+    <p>This research project, completed under the guidance of <strong>Dr. Sushitha Susan Joseph</strong> at IIIT Kottayam, focuses on early diabetes prediction using a stacked machine learning ensemble. The goal was to create an accurate and explainable model that could assist in clinical decision-making.</p>
+    <p>The final system is deployed as an interactive <strong>Flask web application</strong> where users can input clinical parameters and receive a prediction with model explanation via <strong>LIME (Local Interpretable Model-agnostic Explanations)</strong>.</p>
   </div>
 
   <div class="divider"></div>
 
   <div class="section">
-    <div class="section-label">Locations</div>
-    <div class="section-title">Supported Hotel Locations</div>
-    <div class="locations-grid">
-      <div class="loc-card"><div class="loc-icon">🏙️</div><div class="loc-name">Hyderabad</div></div>
-      <div class="loc-card"><div class="loc-icon">🏖️</div><div class="loc-name">Goa</div></div>
-      <div class="loc-card"><div class="loc-icon">🛕</div><div class="loc-name">Tirupati</div></div>
-      <div class="loc-card"><div class="loc-icon">⛵</div><div class="loc-name">Visakhapatnam</div></div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="section">
-    <div class="section-label">Booking Flow</div>
-    <div class="section-title">Booking Process</div>
-    <div class="flow-grid">
-      <div class="flow-card"><div class="flow-step">Step 01</div><div class="flow-title">Select Location</div><div class="flow-desc">Choose a hotel from the drop-down with city and property details.</div></div>
-      <div class="flow-card"><div class="flow-step">Step 02</div><div class="flow-title">Configure Stay</div><div class="flow-desc">Set number of adults, children, rooms via sliders. Select check-in/out dates.</div></div>
-      <div class="flow-card"><div class="flow-step">Step 03</div><div class="flow-title">Preferences</div><div class="flow-desc">Choose meal plan (Veg / Non-Veg) and special requirements.</div></div>
-      <div class="flow-card"><div class="flow-step">Step 04</div><div class="flow-title">Payment</div><div class="flow-desc">Select Online or Cash payment method with secure processing.</div></div>
-      <div class="flow-card"><div class="flow-step">Step 05</div><div class="flow-title">Confirmation</div><div class="flow-desc">Receive a dynamically generated booking receipt with all reservation details.</div></div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="section">
-    <div class="section-label">Components</div>
-    <div class="section-title">Swing Components Used</div>
-    <div class="comp-grid">
-      <span class="comp-tag">JPanel</span><span class="comp-tag">JButton</span><span class="comp-tag">JTabbedPane</span>
-      <span class="comp-tag">JComboBox</span><span class="comp-tag">JSlider</span><span class="comp-tag">JCheckBox</span>
-      <span class="comp-tag">JTextField</span><span class="comp-tag">JPasswordField</span><span class="comp-tag">ImageIcon</span>
-      <span class="comp-tag">JLabel</span><span class="comp-tag">JOptionPane</span><span class="comp-tag">JRadioButton</span>
-      <span class="comp-tag">ButtonGroup</span>
+    <div class="section-label">Pipeline</div>
+    <div class="section-title">ML Pipeline</div>
+    <div class="pipeline-grid">
+      <div class="pipeline-card">
+        <div class="pc-step">Step 01</div>
+        <div class="pc-title">Data Preprocessing</div>
+        <div class="pc-desc">MinMaxScaler normalization, missing value handling, SMOTE for class imbalance.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Step 02</div>
+        <div class="pc-title">Feature Selection</div>
+        <div class="pc-desc">Chi-square test with SelectKBest to identify top predictive features.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Step 03</div>
+        <div class="pc-title">Base Models</div>
+        <div class="pc-desc">Random Forest, Support Vector Classifier, and K-Nearest Neighbors as level-0 models.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Step 04</div>
+        <div class="pc-title">Meta Classifier</div>
+        <div class="pc-desc">Logistic Regression as the level-1 meta-learner combining base model outputs.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Step 05</div>
+        <div class="pc-title">Hyperparameter Tuning</div>
+        <div class="pc-desc">GridSearchCV with cross-validation to optimize each model's parameters.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Step 06</div>
+        <div class="pc-title">Explainability</div>
+        <div class="pc-desc">LIME integration for per-prediction explanation and clinical transparency.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Step 07</div>
+        <div class="pc-title">Deployment</div>
+        <div class="pc-desc">Flask web app with form-based user input and real-time prediction interface.</div>
+      </div>
     </div>
   </div>
 
@@ -134,16 +142,22 @@ p{color:var(--text-dim);margin-bottom:1rem}strong{color:var(--text);font-weight:
     <div class="section-label">Technology</div>
     <div class="section-title">Tech Stack</div>
     <div class="tech-grid">
-      <span class="tech-tag">Java Swing</span>
-      <span class="tech-tag">Java AWT</span>
-      <span class="tech-tag">JDBC</span>
-      <span class="tech-tag">MySQL</span>
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Flask</span>
+      <span class="tech-tag">Scikit-learn</span>
+      <span class="tech-tag">imbalanced-learn (SMOTE)</span>
+      <span class="tech-tag">LIME</span>
+      <span class="tech-tag">Pandas</span>
+      <span class="tech-tag">NumPy</span>
+      <span class="tech-tag">Matplotlib</span>
+      <span class="tech-tag">GridSearchCV</span>
+      <span class="tech-tag">HTML / CSS</span>
     </div>
   </div>
 </div>
 
 <footer style="border-top:1px solid var(--border);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
-  <span style="font-size:.78rem;color:var(--text-muted)">Sterling Homes Booking System · 2024</span>
+  <span style="font-size:.78rem;color:var(--text-muted)">Diabetes Prediction System · IIIT Kottayam · 2025</span>
   <a href="index.html" class="nav-back">← Back to Portfolio</a>
 </footer>
 
