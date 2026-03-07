@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brain Tumor Detection — Yashwanth Hudumula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #F5C842;
+  --gold-dim: #c9a22d;
+  --gold-glow: rgba(245,200,66,0.15);
+  --bg: #0A0A0A;
+  --bg2: #111111;
+  --bg3: #161616;
+  --bg4: #1c1c1c;
+  --surface: #202020;
+  --border: rgba(255,255,255,0.07);
+  --text: #E8E8E0;
+  --text-dim: #b8b8b0;
+  --text-muted: #999990;
+  --white: #FAFAF5;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; cursor: none; }
+
+#cursor { position: fixed; top: 0; left: 0; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
+#cursor-ring { position: fixed; top: 0; left: 0; width: 36px; height: 36px; border: 1.5px solid rgba(245,200,66,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
+.cursor-expand #cursor { width: 18px; height: 18px; }
+.cursor-expand #cursor-ring { width: 54px; height: 54px; border-color: var(--gold); }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+::selection { background: var(--gold); color: #000; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3.5rem;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--white); letter-spacing: -0.02em; text-decoration: none; }
+.nav-logo span { color: var(--gold); }
+.nav-back { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; transition: color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+.nav-back:hover { color: var(--gold); }
+
+/* HERO */
+.project-hero {
+  min-height: 70vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 8rem 3.5rem 4rem;
+  max-width: 1200px; margin: 0 auto;
+  position: relative;
+}
+.project-hero::before {
+  content: '🧬';
+  position: absolute;
+  top: 120px; right: 3.5rem;
+  font-size: clamp(6rem, 15vw, 14rem);
+  opacity: 0.07;
+  pointer-events: none;
+  filter: grayscale(1);
+}
+.project-category-tag {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.7s 0.2s ease forwards;
+}
+.project-category-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+.project-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6vw, 5.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.8s 0.35s ease forwards;
+}
+.project-title em { color: var(--gold); font-style: normal; }
+.project-subtitle {
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  color: var(--text-dim); font-weight: 300; max-width: 700px;
+  opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards;
+  margin-bottom: 2.5rem;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 2rem;
+  opacity: 0; animation: fadeUp 0.7s 0.65s ease forwards;
+}
+.hero-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+.hero-meta-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+.hero-meta-value { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--white); }
+
+/* STATS BAR */
+.stats-bar {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 3.5rem;
+}
+.stats-bar-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 2rem;
+}
+.stat-item { text-align: center; }
+.stat-number {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.stat-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+
+/* CONTENT */
+.content-section {
+  max-width: 1200px; margin: 0 auto;
+  padding: 5rem 3.5rem;
+}
+.section-label {
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+.section-heading {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: var(--white); margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.section-heading span { color: var(--gold); }
+.section-text { color: var(--text-dim); max-width: 780px; line-height: 1.9; margin-bottom: 1.5rem; }
+
+/* TWO COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* CARDS */
+.info-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2rem;
+  transition: border-color 0.3s;
+}
+.info-card:hover { border-color: rgba(245,200,66,0.3); }
+.info-card-title {
+  font-family: 'Syne', sans-serif; font-weight: 600;
+  font-size: 1rem; color: var(--white);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.info-card-title .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+
+/* MODEL GRID */
+.model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+@media (max-width: 680px) { .model-grid { grid-template-columns: 1fr; } }
+.model-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.model-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
+.model-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+.model-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 0.4rem; }
+.model-acc { font-size: 1.6rem; font-weight: 800; color: var(--gold); font-family: 'Syne', sans-serif; margin-bottom: 0.3rem; }
+.model-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+/* TECH STACK */
+.tech-stack { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+.tech-tag {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text-dim); font-size: 0.78rem;
+  padding: 0.35rem 0.85rem; border-radius: 2px;
+  letter-spacing: 0.04em; font-weight: 400;
+  transition: border-color 0.2s, color 0.2s;
+}
+.tech-tag:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+/* PIPELINE */
+.pipeline {
+  display: flex; align-items: stretch; gap: 0;
+  margin-top: 2rem; overflow-x: auto;
+  padding-bottom: 1rem;
+}
+.pipeline-step {
+  flex: 1; min-width: 130px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  position: relative;
+}
+.pipeline-step::after {
+  content: '→';
+  position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+  color: var(--gold); font-size: 1.1rem; z-index: 1;
+  font-weight: 700;
+}
+.pipeline-step:last-child::after { display: none; }
+.pipeline-step-num { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+.pipeline-step-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--white); margin-bottom: 0.3rem; }
+.pipeline-step-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+
+/* RESULTS TABLE */
+.results-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.results-table th { font-family: 'Syne', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+.results-table td { padding: 0.9rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-dim); font-size: 0.88rem; }
+.results-table tr:hover td { background: var(--bg2); }
+.results-table .best { color: var(--gold); font-weight: 500; font-family: 'Syne', sans-serif; }
+
+/* GRAD-CAM */
+.gradcam-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+.gradcam-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.gradcam-visual {
+  width: 100%; aspect-ratio: 1;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1200 50%, #0a0a0a 100%);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.gradcam-visual::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 60%, rgba(245,200,66,0.25) 0%, transparent 60%);
+}
+.gradcam-class { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem; color: var(--white); margin-bottom: 0.3rem; }
+.gradcam-desc { font-size: 0.75rem; color: var(--text-muted); }
+
+/* TEAM */
+.team-list { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+.team-member {
+  background: var(--bg3); border: 1px solid var(--border);
+  padding: 0.8rem 1.3rem; border-radius: 2px;
+  font-size: 0.85rem; color: var(--text-dim);
+}
+.team-member strong { color: var(--white); font-weight: 500; }
+
+/* CTA */
+.project-cta {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 4rem 3.5rem;
+  text-align: center;
+}
+.project-cta h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
+.project-cta p { color: var(--text-dim); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+.cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--gold); color: #000;
+  padding: 0.75rem 2rem; font-family: 'Syne', sans-serif;
+  font-weight: 600; font-size: 0.85rem; letter-spacing: 0.06em;
+  text-transform: uppercase; text-decoration: none;
+  border-radius: 2px; transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+.btn-secondary {
+  border: 1px solid var(--border); color: var(--text-dim);
+  padding: 0.75rem 2rem; font-family: 'Syne', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+/* DIVIDER */
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* FADE ANIM */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+footer { padding: 2.5rem 3.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.82rem; }
+footer a { color: var(--gold); text-decoration: none; }
+
+@media (max-width: 640px) {
+  nav { padding: 1rem 1.5rem; }
+  .project-hero, .content-section, .stats-bar { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .project-cta { padding: 3rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Y<span>.</span>H</a>
+  <a href="index.html#projects" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Projects
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="project-hero">
+  <div class="project-category-tag">Healthcare AI · Major Project · JNTUH 2025</div>
+  <h1 class="project-title">Early Brain Tumor<br><em>Detection & Classification</em><br>with Explainable AI</h1>
+  <p class="project-subtitle">An ensemble deep-learning system combining DenseNet201, InceptionV3 & EfficientNetB3 for MRI-based brain tumor classification across 4 classes — with Grad-CAM explainability for clinical transparency.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Final Accuracy</span>
+      <span class="hero-meta-value">99.01%</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Institution</span>
+      <span class="hero-meta-value">JNTUH University</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Supervisor</span>
+      <span class="hero-meta-value">Dr. M. Arathi</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Year</span>
+      <span class="hero-meta-value">2025</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Type</span>
+      <span class="hero-meta-value">B.Tech + M.Tech Major Project</span>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item reveal">
+      <div class="stat-number">99.01%</div>
+      <div class="stat-label">Ensemble Accuracy</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Tumor Classes</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-number">3</div>
+      <div class="stat-label">CNN Models Fused</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-number">97%+</div>
+      <div class="stat-label">Per-Model Accuracy</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-number">Grad-CAM</div>
+      <div class="stat-label">Explainability Method</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- OVERVIEW -->
+<div class="content-section">
+  <div class="two-col">
+    <div class="reveal">
+      <div class="section-label">01 Overview</div>
+      <h2 class="section-heading">What the <span>Project</span> Does</h2>
+      <p class="section-text">Brain tumors represent one of the most life-threatening medical conditions. Manual MRI analysis by radiologists is time-consuming and prone to human variability. This project presents an integrated deep-learning diagnostic system that combines three powerful CNN architectures into a soft-voting ensemble to accurately detect and classify brain tumors from MRI scans.</p>
+      <p class="section-text">The four tumor classes classified are <strong style="color:var(--white)">Glioma</strong>, <strong style="color:var(--white)">Meningioma</strong>, <strong style="color:var(--white)">Pituitary</strong>, and <strong style="color:var(--white)">No Tumor</strong> — achieving an ensemble accuracy of <strong style="color:var(--gold)">99.01%</strong>.</p>
+      <p class="section-text">Critically, the system integrates Explainable AI via <strong style="color:var(--white)">Grad-CAM</strong>, overlaying heatmaps on MRI images to show which tumor regions influenced each prediction — building clinical trust and transparency.</p>
+    </div>
+    <div class="reveal">
+      <div class="info-card" style="margin-bottom:1rem;">
+        <div class="info-card-title"><span class="dot"></span> Problem Statement</div>
+        <p style="font-size:0.85rem; color:var(--text-dim); line-height:1.7;">Early-stage brain tumors exhibit subtle visual patterns, making manual detection error-prone. Single CNN models may overfit or show bias. Most AI systems in healthcare are "black boxes" — providing predictions without clinical explanation.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title"><span class="dot"></span> Solution</div>
+        <p style="font-size:0.85rem; color:var(--text-dim); line-height:1.7;">Ensemble of 3 CNNs using soft-voting reduces individual model bias. Grad-CAM provides visual explanations, making the system interpretable and trustworthy for radiologists. Achieves near-perfect accuracy with clinical explainability.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- PIPELINE -->
+<div class="content-section">
+  <div class="reveal">
+    <div class="section-label">02 System Architecture</div>
+    <h2 class="section-heading">Deep Learning <span>Pipeline</span></h2>
+    <p class="section-text">The system processes MRI images through a structured 7-stage pipeline, from raw input to clinical-grade explainable output.</p>
+  </div>
+  <div class="pipeline reveal">
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">01</div>
+      <div class="pipeline-step-name">MRI Input</div>
+      <div class="pipeline-step-desc">Raw MRI scans loaded from dataset</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">02</div>
+      <div class="pipeline-step-name">Preprocessing</div>
+      <div class="pipeline-step-desc">Resize, normalize, augment (flip, zoom, rotate)</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">03</div>
+      <div class="pipeline-step-name">3× CNN Models</div>
+      <div class="pipeline-step-desc">DenseNet201, InceptionV3, EfficientNetB3</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">04</div>
+      <div class="pipeline-step-name">Soft Voting</div>
+      <div class="pipeline-step-desc">Ensemble fusion (0.5D + 0.3I + 0.2E)</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">05</div>
+      <div class="pipeline-step-name">Prediction</div>
+      <div class="pipeline-step-desc">Tumor class + confidence score</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">06</div>
+      <div class="pipeline-step-name">Grad-CAM</div>
+      <div class="pipeline-step-desc">Heatmap overlay on MRI</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">07</div>
+      <div class="pipeline-step-name">Output</div>
+      <div class="pipeline-step-desc">Classification + visual explanation</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- MODELS -->
+<div class="content-section">
+  <div class="reveal">
+    <div class="section-label">03 Models</div>
+    <h2 class="section-heading">CNN <span>Architectures</span></h2>
+    <p class="section-text">Three state-of-the-art CNN architectures were selected for their complementary strengths. Each was individually trained, fine-tuned, and evaluated before being combined in the ensemble.</p>
+  </div>
+  <div class="model-grid">
+    <div class="model-card reveal">
+      <div class="model-icon">🔗</div>
+      <div class="model-name">DenseNet201</div>
+      <div class="model-acc">97.4%</div>
+      <div class="model-desc">Dense skip-connections for superior feature reuse. 35 epochs (25 base + 10 fine-tune). Best in low-level texture capture. Excels at No Tumor class (100%).</div>
+    </div>
+    <div class="model-card reveal">
+      <div class="model-icon">🔀</div>
+      <div class="model-name">InceptionV3</div>
+      <div class="model-acc">~97%</div>
+      <div class="model-desc">Multi-scale parallel convolution branches. Captures small tumors and irregular shapes. 30 epochs. Strong performance in Pituitary & Meningioma classes.</div>
+    </div>
+    <div class="model-card reveal">
+      <div class="model-icon">⚡</div>
+      <div class="model-name">EfficientNetB3</div>
+      <div class="model-acc">~99%</div>
+      <div class="model-desc">Compound scaling of depth, width & resolution. Best individual generalization. ~35 epochs. Superior consistency with minimal misclassification.</div>
+    </div>
+  </div>
+
+  <!-- RESULTS TABLE -->
+  <div class="reveal" style="margin-top:3rem;">
+    <h3 style="font-family:'Syne',sans-serif; font-size:1.1rem; color:var(--white); margin-bottom:0.5rem;">Model Comparison</h3>
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Accuracy</th>
+          <th>Strength</th>
+          <th>Weakness</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>DenseNet201</td>
+          <td>~97.4%</td>
+          <td>Feature reuse, stable learning</td>
+          <td>Slight bias in Glioma</td>
+        </tr>
+        <tr>
+          <td>InceptionV3</td>
+          <td>~97%</td>
+          <td>Multi-scale feature extraction</td>
+          <td>Sensitive to class imbalance</td>
+        </tr>
+        <tr>
+          <td>EfficientNetB3</td>
+          <td>~99%</td>
+          <td>Best single-model generalization</td>
+          <td>Slower training</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--white)">Ensemble (Soft Vote)</strong></td>
+          <td class="best">99.01%</td>
+          <td>Most stable & accurate</td>
+          <td>Requires more compute</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- EXPLAINABLE AI -->
+<div class="content-section">
+  <div class="two-col">
+    <div class="reveal">
+      <div class="section-label">04 Explainability</div>
+      <h2 class="section-heading">Grad-CAM <span>Heatmaps</span></h2>
+      <p class="section-text">Deep learning models in healthcare must be explainable. Grad-CAM (Gradient-weighted Class Activation Mapping) generates visual heatmaps showing which regions of the MRI scan influenced the model's prediction.</p>
+      <p class="section-text">Bright red/yellow regions indicate highest model attention. For tumor cases, heatmaps consistently focus on pathological tissue — validating clinical correctness and building radiologist trust.</p>
+      <div class="info-card" style="margin-top:1.5rem;">
+        <div class="info-card-title"><span class="dot"></span> Why Explainability Matters</div>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem;">
+          <li style="font-size:0.83rem; color:var(--text-dim); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span> Clinicians need to verify AI focuses on tumor regions</li>
+          <li style="font-size:0.83rem; color:var(--text-dim); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span> Regulatory compliance in medical AI requires transparency</li>
+          <li style="font-size:0.83rem; color:var(--text-dim); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span> Helps identify incorrect model focus in misclassified cases</li>
+          <li style="font-size:0.83rem; color:var(--text-dim); padding-left:1rem; position:relative;"><span style="position:absolute;left:0;color:var(--gold);">→</span> Increases clinical adoption of AI systems</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="gradcam-grid">
+        <div class="gradcam-card">
+          <div class="gradcam-visual" style="background: linear-gradient(135deg, #0a0a0a, #1a0800);">
+            <span style="z-index:1; position:relative;">🧠</span>
+          </div>
+          <div class="gradcam-class">Glioma</div>
+          <div class="gradcam-desc">Irregular, diffuse tumor boundaries highlighted</div>
+        </div>
+        <div class="gradcam-card">
+          <div class="gradcam-visual" style="background: linear-gradient(135deg, #0a0a0a, #001a0a);">
+            <span style="z-index:1; position:relative;">🧠</span>
+          </div>
+          <div class="gradcam-class">Meningioma</div>
+          <div class="gradcam-desc">Smooth, well-defined regions near meninges</div>
+        </div>
+        <div class="gradcam-card">
+          <div class="gradcam-visual" style="background: linear-gradient(135deg, #0a0a0a, #0a001a);">
+            <span style="z-index:1; position:relative;">🧠</span>
+          </div>
+          <div class="gradcam-class">Pituitary</div>
+          <div class="gradcam-desc">Center-bottom activation near pituitary gland</div>
+        </div>
+        <div class="gradcam-card">
+          <div class="gradcam-visual" style="background: linear-gradient(135deg, #0a0a0a, #0a0a0a);">
+            <span style="z-index:1; position:relative;">🧠</span>
+          </div>
+          <div class="gradcam-class">No Tumor</div>
+          <div class="gradcam-desc">No significant activation — correct classification</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- TECH STACK -->
+<div class="content-section">
+  <div class="reveal">
+    <div class="section-label">05 Tech Stack</div>
+    <h2 class="section-heading">Tools & <span>Technologies</span></h2>
+  </div>
+  <div class="two-col" style="gap:2rem;">
+    <div class="reveal">
+      <div class="info-card">
+        <div class="info-card-title"><span class="dot"></span> Machine Learning</div>
+        <div class="tech-stack">
+          <span class="tech-tag">TensorFlow</span><span class="tech-tag">Keras</span>
+          <span class="tech-tag">DenseNet201</span><span class="tech-tag">InceptionV3</span>
+          <span class="tech-tag">EfficientNetB3</span><span class="tech-tag">Grad-CAM</span>
+          <span class="tech-tag">scikit-learn</span><span class="tech-tag">NumPy</span>
+          <span class="tech-tag">Pandas</span><span class="tech-tag">Matplotlib</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="info-card">
+        <div class="info-card-title"><span class="dot"></span> Web Interface & Tools</div>
+        <div class="tech-stack">
+          <span class="tech-tag">Flask</span><span class="tech-tag">React.js</span>
+          <span class="tech-tag">TailwindCSS</span><span class="tech-tag">FastAPI</span>
+          <span class="tech-tag">OpenCV</span><span class="tech-tag">Python 3.10+</span>
+          <span class="tech-tag">Jupyter Notebook</span><span class="tech-tag">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- TEAM -->
+<div class="content-section">
+  <div class="reveal">
+    <div class="section-label">06 Team</div>
+    <h2 class="section-heading">Project <span>Contributors</span></h2>
+    <p class="section-text">Major project submitted for B.Tech + M.Tech (Integrated) in Computer Science & Engineering at JNTUH University College of Engineering, Hyderabad. Under the guidance of Dr. M. Arathi, Professor, CSE Department.</p>
+    <div class="team-list">
+      <div class="team-member"><strong>H. Yashwanth</strong> — 22011M2114</div>
+      <div class="team-member"><strong>TNS Pradyumna</strong> — 22011M2107</div>
+      <div class="team-member"><strong>A. Pavan Kumar</strong> — 22011M2112</div>
+      <div class="team-member"><strong>THS Chakradhar</strong> — 22011M2116</div>
+    </div>
+    <div style="margin-top:1.5rem;">
+      <div class="info-card" style="max-width:480px;">
+        <div class="info-card-title"><span class="dot"></span> Supervisor</div>
+        <p style="font-size:0.85rem; color:var(--text-dim);">Dr. M. Arathi, Professor<br>Department of Computer Science & Engineering<br>JNTUH University College of Engineering, Hyderabad</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="project-cta">
+  <h3>Explore the Full Report</h3>
+  <p>Read the complete major project report with detailed methodology, results, and analysis.</p>
+  <div class="cta-buttons">
+    <a href="final_major_project_report.pdf" target="_blank" class="btn-primary">View Full Report →</a>
+    <a href="https://github.com/YashwanthHudumula" target="_blank" class="btn-secondary">GitHub →</a>
+    <a href="index.html#projects" class="btn-secondary">← All Projects</a>
+  </div>
+</div>
+
+<footer>
+  <div>© 2025 H Yashwanth · <a href="index.html">Back to Portfolio</a></div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; cursor.style.left = cx+'px'; cursor.style.top = cy+'px'; });
+function animateCursor() { rx += (cx-rx)*0.12; ry += (cy-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animateCursor); }
+animateCursor();
+document.querySelectorAll('a, button').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('cursor-expand')); el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-expand')); });
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lung Cancer Detection — Yashwanth Hudumula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #F5C842; --gold-dim: #c9a22d; --gold-glow: rgba(245,200,66,0.15);
+  --bg: #0A0A0A; --bg2: #111111; --bg3: #161616; --bg4: #1c1c1c; --surface: #202020;
+  --border: rgba(255,255,255,0.07); --text: #E8E8E0; --text-dim: #b8b8b0;
+  --text-muted: #999990; --white: #FAFAF5;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; cursor: none; }
+#cursor { position: fixed; top: 0; left: 0; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .3s,height .3s; }
+#cursor-ring { position: fixed; top: 0; left: 0; width: 36px; height: 36px; border: 1.5px solid rgba(245,200,66,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s,height .3s; }
+.cursor-expand #cursor { width: 18px; height: 18px; }
+.cursor-expand #cursor-ring { width: 54px; height: 54px; border-color: var(--gold); }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+::selection { background: var(--gold); color: #000; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3.5rem; background: rgba(10,10,10,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--white); letter-spacing: -0.02em; text-decoration: none; }
+.nav-logo span { color: var(--gold); }
+.nav-back { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; transition: color .2s; }
+.nav-back:hover { color: var(--gold); }
+
+/* HERO */
+.project-hero { min-height: 72vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 8rem 3.5rem 4rem; max-width: 1200px; margin: 0 auto; position: relative; overflow: hidden; }
+.project-hero::before { content: '🫁'; position: absolute; top: 110px; right: 3rem; font-size: clamp(5rem, 14vw, 13rem); opacity: 0.07; pointer-events: none; filter: grayscale(1); }
+.badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.3); color: var(--gold); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp .7s .2s ease forwards; }
+.project-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5.5vw, 5rem); line-height: 1.0; letter-spacing: -0.03em; color: var(--white); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp .8s .35s ease forwards; }
+.project-title em { color: var(--gold); font-style: normal; }
+.project-subtitle { font-size: clamp(0.9rem, 1.4vw, 1.1rem); color: var(--text-dim); font-weight: 300; max-width: 680px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp .7s .5s ease forwards; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 0.8rem; opacity: 0; animation: fadeUp .7s .65s ease forwards; margin-bottom: 2rem; }
+.chip { background: var(--bg3); border: 1px solid var(--border); padding: 0.5rem 1rem; font-size: 0.78rem; color: var(--text-dim); border-radius: 2px; }
+.chip strong { color: var(--gold); font-weight: 600; }
+
+/* STATS */
+.stats-bar { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 3.5rem; }
+.stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem; }
+.stat { text-align: center; }
+.stat-num { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: .4rem; }
+.stat-lbl { font-size: 0.72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+
+/* CONTENT */
+.section { max-width: 1200px; margin: 0 auto; padding: 5rem 3.5rem; }
+.section-tag { font-size: .73rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
+.section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+.section-h { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(1.4rem, 2.8vw, 2.1rem); color: var(--white); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+.section-h span { color: var(--gold); }
+.section-p { color: var(--text-dim); max-width: 780px; line-height: 1.9; margin-bottom: 1.3rem; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+@media(max-width:768px) { .two-col { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* CARDS */
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; transition: border-color .3s; margin-bottom: 1rem; }
+.card:hover { border-color: rgba(245,200,66,.3); }
+.card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--white); margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
+.dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; display: inline-block; }
+
+/* STAGE CARDS */
+.stage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+@media(max-width:680px) { .stage-grid { grid-template-columns: 1fr; } }
+.stage-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 2rem 1.5rem; transition: border-color .3s, transform .3s; position: relative; overflow: hidden; }
+.stage-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); opacity: 0; transition: opacity .3s; }
+.stage-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
+.stage-card:hover::before { opacity: 1; }
+.stage-num { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+.stage-model { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); margin-bottom: .3rem; }
+.stage-task { font-size: .8rem; color: var(--text-muted); margin-bottom: 1rem; }
+.stage-acc { font-size: 1.8rem; font-weight: 800; color: var(--gold); font-family: 'Syne', sans-serif; margin-bottom: .5rem; }
+.stage-acc-label { font-size: .72rem; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: .8rem; }
+.stage-desc { font-size: .8rem; color: var(--text-dim); line-height: 1.6; }
+
+/* TAGS */
+.tags { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.tag { background: var(--bg3); border: 1px solid var(--border); color: var(--text-dim); font-size: .78rem; padding: .35rem .85rem; border-radius: 2px; transition: border-color .2s, color .2s; }
+.tag:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+/* TABLE */
+.tbl { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.tbl th { font-family: 'Syne', sans-serif; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); padding: .8rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+.tbl td { padding: .9rem 1rem; border-bottom: 1px solid rgba(255,255,255,.04); color: var(--text-dim); font-size: .88rem; }
+.tbl tr:hover td { background: var(--bg2); }
+.highlight { color: var(--gold); font-weight: 500; font-family: 'Syne', sans-serif; }
+
+/* INTERNSHIP BADGE */
+.internship-banner { background: linear-gradient(135deg, var(--bg2), var(--bg3)); border: 1px solid rgba(245,200,66,.2); border-radius: 4px; padding: 2rem; display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; }
+.internship-icon { font-size: 2.5rem; flex-shrink: 0; }
+.internship-text h4 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--white); margin-bottom: .3rem; }
+.internship-text p { font-size: .84rem; color: var(--text-dim); }
+.internship-text span { color: var(--gold); }
+
+/* CTA */
+.project-cta { background: var(--bg2); border-top: 1px solid var(--border); padding: 4rem 3.5rem; text-align: center; }
+.project-cta h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
+.project-cta p { color: var(--text-dim); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-p { background: var(--gold); color: #000; padding: .75rem 2rem; font-family: 'Syne', sans-serif; font-weight: 600; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background .2s, transform .2s; }
+.btn-p:hover { background: var(--white); transform: translateY(-2px); }
+.btn-s { border: 1px solid var(--border); color: var(--text-dim); padding: .75rem 2rem; font-family: 'Syne', sans-serif; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color .2s, color .2s; }
+.btn-s:hover { border-color: var(--gold); color: var(--gold); }
+
+hr.div { border: none; border-top: 1px solid var(--border); margin: 0; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+footer { padding: 2.5rem 3.5rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: .82rem; }
+footer a { color: var(--gold); text-decoration: none; }
+@media(max-width:640px) { nav { padding: 1rem 1.5rem; } .project-hero, .section, .stats-bar { padding-left: 1.5rem; padding-right: 1.5rem; } }
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Y<span>.</span>H</a>
+  <a href="index.html#projects" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Projects
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="project-hero">
+  <div class="badge">🏫 LUSIP 2025 · LNMIIT Jaipur · Research Internship</div>
+  <h1 class="project-title">Lung Cancer Detection,<br><em>Segmentation & Classification</em><br>using Deep Learning</h1>
+  <p class="project-subtitle">A three-stage deep learning pipeline using EfficientNetB3 (detection), U-Net (segmentation) and DenseNet201 (classification) on CT scan images — with Grad-CAM explainability. Conducted at LNMIIT Jaipur under Prof. Kusum Lata.</p>
+  <div class="hero-chips">
+    <div class="chip">Detection: <strong>90.24% acc, 94.87 F1</strong></div>
+    <div class="chip">Segmentation: <strong>99.10% acc</strong></div>
+    <div class="chip">Classification: <strong>94.92% acc</strong></div>
+    <div class="chip">Supervisor: <strong>Prof. Kusum Lata</strong></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat reveal"><div class="stat-num">90.24%</div><div class="stat-lbl">Detection Accuracy</div></div>
+    <div class="stat reveal"><div class="stat-num">99.10%</div><div class="stat-lbl">Segmentation Accuracy</div></div>
+    <div class="stat reveal"><div class="stat-num">94.92%</div><div class="stat-lbl">Classification Accuracy</div></div>
+    <div class="stat reveal"><div class="stat-num">4</div><div class="stat-lbl">Cancer Classes</div></div>
+    <div class="stat reveal"><div class="stat-num">0.9487</div><div class="stat-lbl">F1-Score (Detection)</div></div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- INTERNSHIP CONTEXT -->
+<div class="section">
+  <div class="reveal">
+    <div class="internship-banner">
+      <div class="internship-icon">🏛️</div>
+      <div class="internship-text">
+        <h4>LNMIIT Undergraduate Summer Internship Program (LUSIP 2025)</h4>
+        <p>This project was conducted at <span>The LNM Institute of Technology, Jaipur</span> under the guidance of <span>Prof. Kusum Lata</span>. Published as an IEEE Conference paper at OCIT 2025 (DOI: 10.1109/OCIT66168.2025.11400116).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="reveal">
+      <div class="section-tag">01 Overview</div>
+      <h2 class="section-h">What This <span>Project</span> Does</h2>
+      <p class="section-p">Lung cancer is one of the most fatal malignancies worldwide, primarily due to delayed diagnosis. This project proposes a comprehensive three-stage deep learning pipeline for automated lung cancer analysis from CT scan images.</p>
+      <p class="section-p">Each stage handles a distinct task: <strong style="color:var(--white)">EfficientNetB3</strong> detects whether a tumor is present, <strong style="color:var(--white)">U-Net</strong> precisely segments the tumor region, and <strong style="color:var(--white)">DenseNet201</strong> classifies it into one of four cancer types.</p>
+      <p class="section-p">Grad-CAM visualizations are integrated into both detection and classification stages to provide transparent, interpretable AI predictions for clinical trust.</p>
+    </div>
+    <div class="reveal">
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> The 4 Cancer Classes</div>
+        <table class="tbl" style="margin-top:0;">
+          <tbody>
+            <tr><td style="color:var(--gold); font-weight:500;">Adenocarcinoma</td><td>Most common lung cancer subtype</td></tr>
+            <tr><td style="color:var(--gold); font-weight:500;">Squamous Cell</td><td>Linked to smoking, central location</td></tr>
+            <tr><td style="color:var(--gold); font-weight:500;">Large Cell</td><td>Aggressive, poor prognosis</td></tr>
+            <tr><td style="color:var(--gold); font-weight:500;">Normal</td><td>No malignant tissue detected</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> Dataset</div>
+        <p style="font-size:.85rem; color:var(--text-dim);">LIDC-IDRI dataset — CT images labeled for tumor/normal classification, with annotated segmentation masks. Split 75:10:15 (train/val/test) for detection; ~70:15:15 for segmentation.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- THREE STAGES -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-tag">02 Three-Stage Pipeline</div>
+    <h2 class="section-h">Detection → Segmentation → <span>Classification</span></h2>
+    <p class="section-p">The pipeline is sequential and modular — each stage feeds enriched information into the next, improving overall accuracy and robustness.</p>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-card reveal">
+      <div class="stage-num">Stage 01 · Detection</div>
+      <div class="stage-model">EfficientNetB3</div>
+      <div class="stage-task">Binary Classification (Tumor / Normal)</div>
+      <div class="stage-acc">90.24%</div>
+      <div class="stage-acc-label">Test Accuracy · F1: 0.9487</div>
+      <div class="stage-desc">Compound-scaled CNN detects whether a CT scan contains a suspicious tumor region. Trained over 40 epochs (20 frozen + 20 fine-tuning) with learning rate decay. Minimal false negatives — critical in oncology.</div>
+    </div>
+    <div class="stage-card reveal">
+      <div class="stage-num">Stage 02 · Segmentation</div>
+      <div class="stage-model">U-Net</div>
+      <div class="stage-task">Pixel-level Tumor Region Localization</div>
+      <div class="stage-acc">99.10%</div>
+      <div class="stage-acc-label">Test Accuracy</div>
+      <div class="stage-desc">U-Net encoder-decoder with skip connections generates pixel-precise tumor masks from 256×256 grayscale CT slices. Trained 20 epochs on LIDC-IDRI. Delineates tumor boundaries for downstream classification.</div>
+    </div>
+    <div class="stage-card reveal">
+      <div class="stage-num">Stage 03 · Classification</div>
+      <div class="stage-model">DenseNet201</div>
+      <div class="stage-task">4-Class Cancer Type Identification</div>
+      <div class="stage-acc">94.92%</div>
+      <div class="stage-acc-label">Test Accuracy · Avg F1: 0.94</div>
+      <div class="stage-desc">DenseNet201 with ImageNet pretraining classifies segmented regions into Adenocarcinoma, Large Cell, Squamous Cell, or Normal. 22 epochs with early stopping. Strong diagonal in confusion matrix.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- TRAINING DETAILS -->
+<div class="section">
+  <div class="reveal">
+    <div class="section-tag">03 Training Details</div>
+    <h2 class="section-h">Model Training <span>Characteristics</span></h2>
+  </div>
+  <div class="two-col">
+    <div class="reveal">
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> EfficientNetB3 — Detection</div>
+        <table class="tbl" style="margin-top:0;">
+          <tbody>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Input Size</td><td>300 × 300 × 3</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Epochs</td><td>40 (20 frozen + 20 fine-tune)</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Optimizer</td><td>Adam (0.001 → 0.0001)</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Loss</td><td>Binary Crossentropy</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Test Accuracy</td><td class="highlight">90.24%</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">F1-Score</td><td class="highlight">0.9487</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> U-Net — Segmentation</div>
+        <table class="tbl" style="margin-top:0;">
+          <tbody>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Input Size</td><td>256 × 256 × 1 (grayscale)</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Epochs</td><td>20</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Learning Rate</td><td>0.0001</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Batch Size</td><td>8</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Test Accuracy</td><td class="highlight">99.10%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> DenseNet201 — Classification</div>
+        <table class="tbl" style="margin-top:0;">
+          <tbody>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Input Size</td><td>224 × 224 × 3 (RGB)</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Epochs</td><td>22 (early stopping, patience=5)</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Optimizer</td><td>Adam (lr=1e-4)</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Pretrained</td><td>ImageNet weights</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Augmentation</td><td>Rotation, shift, zoom, flip</td></tr>
+            <tr><td style="color:var(--text-muted); font-size:.8rem;">Test Accuracy</td><td class="highlight">94.92%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:0;">
+        <div class="card-title"><span class="dot"></span> Grad-CAM Explainability</div>
+        <p style="font-size:.83rem; color:var(--text-dim); line-height:1.7;">Applied to both EfficientNetB3 and DenseNet201. Generates heatmaps highlighting tumor-relevant regions. For tumor-positive images, activation closely matches pathological tissue. For normal cases, no significant activation — validating correct model focus.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- TECH STACK -->
+<div class="section">
+  <div class="two-col">
+    <div class="reveal">
+      <div class="section-tag">04 Tech Stack</div>
+      <h2 class="section-h">Tools & <span>Technologies</span></h2>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> Deep Learning & ML</div>
+        <div class="tags">
+          <span class="tag">TensorFlow 2.x</span><span class="tag">Keras</span>
+          <span class="tag">EfficientNetB3</span><span class="tag">U-Net</span>
+          <span class="tag">DenseNet201</span><span class="tag">Grad-CAM</span>
+          <span class="tag">NumPy</span><span class="tag">scikit-learn</span>
+          <span class="tag">Matplotlib</span><span class="tag">OpenCV</span>
+          <span class="tag">Seaborn</span><span class="tag">tqdm</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> Environment</div>
+        <div class="tags">
+          <span class="tag">Python 3.10+</span><span class="tag">PyCharm</span>
+          <span class="tag">VS Code</span><span class="tag">CUDA / cuDNN</span>
+          <span class="tag">NVIDIA RTX 30-series GPU</span>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-tag">05 Publication</div>
+      <h2 class="section-h">IEEE <span>Conference Paper</span></h2>
+      <div class="card" style="background: linear-gradient(135deg, var(--bg2), var(--bg3)); border-color: rgba(245,200,66,.2);">
+        <div class="card-title"><span class="dot"></span> Published Research</div>
+        <p style="font-size:.85rem; color:var(--text-dim); margin-bottom:.8rem; line-height:1.7;"><strong style="color:var(--white)">Explainable Deep Learning for Lung Cancer Detection, Segmentation, and Classification in Digital Health Systems</strong></p>
+        <p style="font-size:.8rem; color:var(--text-muted); margin-bottom:.5rem;">Y. Hudumula, S. Saini, K. Lata</p>
+        <p style="font-size:.8rem; color:var(--text-muted); margin-bottom:.8rem;">2025 OITS International Conference on Information Technology (OCIT) · Bhubaneswar, India</p>
+        <p style="font-size:.8rem; color:var(--gold);">DOI: 10.1109/OCIT66168.2025.11400116</p>
+        <div style="margin-top:1rem;">
+          <a href="https://ieeexplore.ieee.org/document/11400116" target="_blank" style="font-size:.82rem; color:var(--gold); text-decoration:none; border-bottom: 1px solid rgba(245,200,66,.3);">View on IEEE Xplore →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="project-cta">
+  <h3>Read the Full Internship Report</h3>
+  <p>Complete LUSIP 2025 internship report with methodology, training details, results and Grad-CAM analysis.</p>
+  <div class="cta-btns">
+    <a href="Lusip_2025_Report__2_.pdf" target="_blank" class="btn-p">View Full Report →</a>
+    <a href="https://ieeexplore.ieee.org/document/11400116" target="_blank" class="btn-s">IEEE Paper →</a>
+    <a href="https://github.com/YashwanthHudumula" target="_blank" class="btn-s">GitHub →</a>
+    <a href="index.html#projects" class="btn-s">← All Projects</a>
+  </div>
+</div>
+
+<footer><div>© 2025 H Yashwanth · <a href="index.html">Back to Portfolio</a></div></footer>
+
+<script>
+const cursor = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { cx=e.clientX; cy=e.clientY; cursor.style.left=cx+'px'; cursor.style.top=cy+'px'; });
+function animateCursor() { rx+=(cx-rx)*0.12; ry+=(cy-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animateCursor); }
+animateCursor();
+document.querySelectorAll('a, button').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('cursor-expand')); el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-expand')); });
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
