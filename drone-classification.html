@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Multi-Modal Drone Classification Using Visual Trajectories and Deep Feature Fusion — BTH Research Project by Yashwanth Hudumula"/>
+<title>Multi-Modal Drone Classification — Yashwanth Hudumula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F5C842;--gold-dim:#c9a22d;--bg:#0A0A0A;--bg2:#111111;--bg3:#161616;--bg4:#1c1c1c;--border:rgba(255,255,255,0.07);--text:#E8E8E0;--text-dim:#b8b8b0;--text-muted:#999990;--white:#FAFAF5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.4}
+::selection{background:var(--gold);color:#000}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+#cursor{position:fixed;top:0;left:0;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid rgba(245,200,66,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease-out}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3.5rem;background:rgba(10,10,10,.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--white);text-decoration:none}.nav-logo span{color:var(--gold)}
+.nav-back{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-dim);text-decoration:none;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}.nav-back:hover{color:var(--gold)}
+
+.page-hero{padding:9rem 3.5rem 5rem;max-width:1100px;margin:0 auto;position:relative}
+.page-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}.page-tag::before{content:'//';font-weight:700}
+.page-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:1rem}.page-title span{color:var(--gold)}
+.page-subtitle{font-size:1.05rem;color:var(--text-dim);max-width:640px;margin-bottom:2rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem}
+.badge{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .8rem;border-radius:2px;border:1px solid var(--border);color:var(--text-muted)}.badge.gold{border-color:rgba(245,200,66,.4);color:var(--gold);background:rgba(245,200,66,.05)}
+.btn-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-p{background:var(--gold);color:#000;padding:.7rem 1.6rem;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;display:inline-flex;align-items:center;gap:.4rem;transition:background .2s,transform .2s}.btn-p:hover{background:var(--white);transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--text);padding:.7rem 1.6rem;font-size:.82rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid var(--border);display:inline-flex;align-items:center;gap:.4rem;transition:border-color .2s,color .2s,transform .2s}.btn-g:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+.page-content{max-width:1100px;margin:0 auto;padding:0 3.5rem 6rem}
+.section{margin-bottom:4rem}
+.section-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}.section-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.section-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:1.5rem}
+p{color:var(--text-dim);margin-bottom:1rem}
+strong{color:var(--text);font-weight:500}
+
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.metric-box{background:var(--bg2);padding:1.4rem;text-align:center;transition:background .2s}.metric-box:hover{background:var(--bg3)}
+.m-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--gold);line-height:1}
+.m-label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-top:.3rem}
+
+.pipeline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.pipeline-card{background:var(--bg2);padding:1.3rem;transition:background .2s}.pipeline-card:hover{background:var(--bg3)}
+.pc-step{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.pc-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.3rem}
+.pc-desc{font-size:.8rem;color:var(--text-muted);line-height:1.5}
+
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.result-card{background:var(--bg2);padding:1.4rem;transition:background .2s}.result-card:hover{background:var(--bg3)}
+.rc-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.8rem}
+.rc-row{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:.82rem}
+.rc-row:last-child{border-bottom:none}
+.rc-label{color:var(--text-muted)}
+.rc-val{color:var(--gold);font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem}
+.rc-val.good{color:#4ade80}
+.rc-val.warn{color:#fb923c}
+
+.comparison-table{width:100%;border-collapse:collapse;margin-bottom:2rem;font-size:.85rem}
+.comparison-table th{font-family:'Syne',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:.8rem 1rem;border-bottom:1px solid rgba(245,200,66,.3);text-align:left;background:var(--bg3)}
+.comparison-table td{padding:.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim)}
+.comparison-table tr:hover td{background:var(--bg3)}
+.comparison-table td:first-child{font-family:'Syne',sans-serif;font-weight:600;color:var(--white)}
+
+.tech-grid{display:flex;flex-wrap:wrap;gap:.6rem}
+.tech-tag{font-size:.78rem;color:var(--text-dim);background:var(--bg3);border:1px solid var(--border);padding:.3rem .9rem;border-radius:2px;transition:border-color .2s,color .2s}.tech-tag:hover{border-color:var(--gold);color:var(--gold)}
+.divider{height:1px;background:var(--border);margin:3rem 0}
+.linkedin-float{position:fixed;bottom:2rem;right:2rem;z-index:8000;background:white;padding:6px;border-radius:50%;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .3s;cursor:none}.linkedin-float:hover{transform:scale(1.12)}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .page-hero,.page-content{padding-left:1.5rem;padding-right:1.5rem}
+  .metrics-row{grid-template-columns:1fr 1fr}
+  .results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">YH<span>.</span></a>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to Portfolio
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-tag">Research · BTH · Computer Vision</div>
+  <h1 class="page-title">Multi-Modal Drone<br><span>Classification</span></h1>
+  <p class="page-subtitle">A gated multimodal fusion model that jointly exploits image sequences and 2D/3D trajectory data to classify aerial objects as BIRD, DRONE, or IRRELEVANT — built for the Visgrid Classification Challenge at the Naval Defense Tech Hackathon, Karlskrona.</p>
+  <div class="badge-row">
+    <span class="badge gold">Blekinge Institute of Technology</span>
+    <span class="badge">2026</span>
+    <span class="badge">Individual Project</span>
+    <span class="badge">Naval Defense Tech Hackathon</span>
+  </div>
+  <div class="btn-row">
+    <a href="Drone_project_publication.pdf" target="_blank" class="btn-p">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      View Paper
+    </a>
+    <a href="https://github.com/YashwanthHudumula/Multi-Modal-Drone-Classification-Using-Visual-Trajectories-and-Deep-Feature-Fusion" target="_blank" class="btn-g">GitHub</a>
+  </div>
+</div>
+
+<div class="page-content">
+
+  <div class="metrics-row">
+    <div class="metric-box"><div class="m-num">0.8919</div><div class="m-label">Test Macro F1</div></div>
+    <div class="metric-box"><div class="m-num">0.9789</div><div class="m-label">Test Macro AUC</div></div>
+    <div class="metric-box"><div class="m-num">0.95</div><div class="m-label">Drone Recall</div></div>
+    <div class="metric-box"><div class="m-num">3</div><div class="m-label">Fused Modalities</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <div class="section-title">Project Overview</div>
+    <p>Reliably telling drones apart from birds and irrelevant background objects is critical for airspace monitoring and counter-UAV systems, but it's a hard problem: objects are small, thumbnails are just 32×32 pixels, and the dataset is both imbalanced and tiny (~572 labelled samples).</p>
+    <p>This project introduces <strong>img_traject_combined</strong>, a model that processes three parallel streams — an EfficientNet-B0 image sequence encoder, a Transformer-based trajectory sequence encoder, and a hand-crafted kinematic feature MLP — and combines them through a <strong>learned gated multimodal fusion</strong> mechanism that adaptively weights each modality per instance.</p>
+    <p>On the Visgrid classification dataset, the model reaches a macro F1-score of <strong>0.9392</strong> on validation and <strong>0.8919</strong> on the held-out test set, with a macro AUC of <strong>0.9789</strong>, outperforming image-only, trajectory-only and naive concatenation-fusion baselines.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Architecture</div>
+    <div class="section-title">Model Pipeline</div>
+    <div class="pipeline-grid">
+      <div class="pipeline-card">
+        <div class="pc-step">Stream 01</div>
+        <div class="pc-title">Image Sequence Encoder</div>
+        <div class="pc-desc">EfficientNet-B0 (ImageNet pretrained, partial fine-tuning) over up to 16 upsampled 96×96 frames, with temporal attention pooling to a 128-d embedding.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Stream 02</div>
+        <div class="pc-title">Trajectory Sequence Encoder</div>
+        <div class="pc-desc">Single-layer Transformer encoder over 2D + 3D position, velocity, acceleration and speed features, padded to length 200, with attention pooling.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Stream 03</div>
+        <div class="pc-title">Kinematic Feature MLP</div>
+        <div class="pc-desc">Hand-crafted statistics — speed percentiles, curvature, vertical oscillation, FFT-based flapping frequency, path straightness — through a 3-layer MLP.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Fusion</div>
+        <div class="pc-title">Gated Multimodal Fusion</div>
+        <div class="pc-desc">A softmax gating network learns per-instance weights over the three embeddings, letting the model lean on whichever modality is most informative for each object.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Head</div>
+        <div class="pc-title">Classification &amp; Loss</div>
+        <div class="pc-desc">A 2-layer MLP head trained with Focal Loss, label smoothing and class weights [1.0, 2.5, 2.0] to prioritise drone detection under class imbalance.</div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pc-step">Post-hoc</div>
+        <div class="pc-title">Threshold Calibration</div>
+        <div class="pc-desc">A grid search over per-class probability bias terms after training, correcting the tendency of neural classifiers to underestimate minority-class confidence.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Results</div>
+    <div class="section-title">Baseline Comparison (Test Set)</div>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Macro F1</th>
+          <th>Bird F1</th>
+          <th>Drone F1</th>
+          <th>Irrelevant F1</th>
+          <th>AUC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Gated Fusion (ours)</td><td>0.8919</td><td>0.89</td><td>0.85</td><td>0.93</td><td>0.9789</td></tr>
+        <tr><td>Image-Only</td><td>0.8909</td><td>0.87</td><td>0.88</td><td>0.92</td><td>0.9784</td></tr>
+        <tr><td>Trajectory-Only</td><td>0.8883</td><td>0.91</td><td>0.85</td><td>0.91</td><td>0.9530</td></tr>
+        <tr><td>Concat Fusion</td><td>0.8263</td><td>0.79</td><td>0.77</td><td>0.92</td><td>0.9167</td></tr>
+      </tbody>
+    </table>
+    <p>Gated fusion achieves the best overall macro F1 and the highest IRRELEVANT F1 (0.93), while naive concatenation underperforms both unimodal baselines — confirming that a learned, per-instance weighting of modalities beats simply stacking their embeddings.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Ablations</div>
+    <div class="section-title">Ablation Study Results</div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="rc-title">Test-Set Impact of Removing Each Component</div>
+        <div class="rc-row"><span class="rc-label">Full model</span><span class="rc-val good">0.8919 F1</span></div>
+        <div class="rc-row"><span class="rc-label">No FFT frequency features</span><span class="rc-val warn">0.8847 F1</span></div>
+        <div class="rc-row"><span class="rc-label">No pretrained backbone</span><span class="rc-val warn">0.8893 F1</span></div>
+        <div class="rc-row"><span class="rc-label">No threshold calibration</span><span class="rc-val warn">0.8851 F1</span></div>
+        <div class="rc-row"><span class="rc-label">No 3D trajectory</span><span class="rc-val warn">0.8707 F1</span></div>
+      </div>
+      <div class="result-card">
+        <div class="rc-title">Key Takeaways</div>
+        <div class="rc-row"><span class="rc-label">Largest single-ablation drop</span><span class="rc-val">3D trajectory removal</span></div>
+        <div class="rc-row"><span class="rc-label">FFT features</span><span class="rc-val">Improve generalisation</span></div>
+        <div class="rc-row"><span class="rc-label">ImageNet pretraining</span><span class="rc-val">Marginal test gain</span></div>
+        <div class="rc-row"><span class="rc-label">Calibration cost</span><span class="rc-val good">No extra training</span></div>
+      </div>
+    </div>
+    <p>Removing 3D trajectory data causes the largest test-set drop of all ablations (0.8919 → 0.8707), showing that height, angle and distance encoded in 3D trajectories carry discriminative information that 2D angular data alone cannot recover — even though the smaller validation set doesn't show the same gap.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Technology</div>
+    <div class="section-title">Tech Stack</div>
+    <div class="tech-grid">
+      <span class="tech-tag">PyTorch</span>
+      <span class="tech-tag">EfficientNet-B0</span>
+      <span class="tech-tag">Transformer Encoder</span>
+      <span class="tech-tag">Focal Loss</span>
+      <span class="tech-tag">Gated Multimodal Fusion</span>
+      <span class="tech-tag">FFT Feature Engineering</span>
+      <span class="tech-tag">AdamW</span>
+      <span class="tech-tag">Cosine Annealing</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">Key Contributions</div>
+    <div class="section-title">Novel Contributions</div>
+    <p>• <strong>Gated multimodal fusion</strong> over naive concatenation — a learned softmax gate adaptively weights image, trajectory and kinematic embeddings per object instance.</p>
+    <p>• <strong>FFT-based frequency features</strong> on the speed signal, capturing the periodic flapping frequency that distinguishes birds from the smoother motion of drones.</p>
+    <p>• <strong>3D trajectory fusion</strong> from multi-camera triangulation, adding height/angle/distance information beyond single-camera 2D tracks.</p>
+    <p>• <strong>Post-hoc decision threshold calibration</strong> via grid search, correcting minority-class under-confidence without any additional training cost.</p>
+  </div>
+
+</div>
+
+<footer style="border-top:1px solid var(--border);padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+  <span style="font-size:.78rem;color:var(--text-muted)">Multi-Modal Drone Classification · BTH · 2026</span>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+</footer>
+
+<a href="https://linkedin.com/in/hudumula-yashwanth" target="_blank" class="linkedin-float" aria-label="LinkedIn">
+  <img src="https://img.icons8.com/?size=100&id=8808&format=png&color=000000" alt="LinkedIn" width="44" height="44">
+</a>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cursor.style.left=cx+'px';cursor.style.top=cy+'px'});
+(function anim(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-expand'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-expand'))});
+</script>
+</body>
+</html>
